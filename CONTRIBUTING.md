@@ -5,6 +5,7 @@
 * Use the present tense meaning "Add Feature" instead of "Feature Added".
 * Use the imperative mood meaning "Move cursor to..." instead of "Moves cursor to...".
 * Consider starting the commit message with an applicable emoji:
+    * :heavy_plus_sign: `:heavy_plus_sign:` when implementing a new feature.
     * :muscle: `:muscle:` when improving the format/structure of the code
     * :speedboat: `:racehorse:` when improving performance
     * :non-potable_water: `:non-potable_water:` when plugging memory leaks
@@ -18,3 +19,4 @@
     * :lock: `:lock:` when dealing with security
     * :arrow_up: `:arrow_up:` when upgrading dependencies
     * :arrow_down: `:arrow_down:` when downgrading dependencies
+    
