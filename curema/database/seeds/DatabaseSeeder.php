@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
         //Seed the countries
         $this->call('CountriesSeeder');
         $this->command->info('Seeded the countries!');
+
+        $this->call('CurrencySeeder');
+        $this->command->info('Seeded the currencies!');
     }
 }

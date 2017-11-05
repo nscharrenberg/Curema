@@ -9,13 +9,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'customer_id', 'is_primary', 'firstname', 'lastname', 'phonenumber', 'title', 'active', 'profile_image', 'direction',
+        'name', 'email', 'password', 'client_id', 'is_primary', 'firstname', 'lastname', 'phonenumber', 'title', 'active', 'profile_image', 'direction',
     ];
 
     /**
@@ -26,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function client() {
+        return $this->belongsTo('App\Client');
+    }
 }

@@ -26,8 +26,8 @@ class CreateAdminsTable extends Migration
             $table->integer('admin')->default(0);
             $table->integer('is_not_staff')->default(0);
             $table->integer('role')->nullable();
-            $table->string('default_language');
-            $table->tinyInteger('active')->default(1);
+            $table->string('default_language')->default('english');
+            $table->boolean('active')->default(true);
             $table->string('media_path_slug')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('direction')->nullable();
