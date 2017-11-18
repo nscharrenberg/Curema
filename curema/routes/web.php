@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/client/logout', 'Auth\LoginController@userLogout')->name('client.logout');
+Route::get('/myinvoices', 'ClientInvoiceController@index')->name('client.invoices');
+Route::get('/invoice/{id}', 'ClientInvoiceController@show')->name('client.invoice.show');
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -47,6 +49,42 @@ Route::prefix('admin')->group(function() {
             Route::patch('/{id}/edit', 'AdminUserController@update')->name('admin.customer.contact.edit.submit');
         });
 
-
+        Route::prefix('{clientId}/appointments')->group(function() {
+            Route::get('/show', 'AdminClientContactController@show')->name('admin.contact.show');
+            Route::get('/create', 'AdminClientContactController@create')->name('admin.contact.create');
+            Route::post('/create', 'AdminClientContactController@store')->name('admin.contact.create.submit');
+            Route::get('/{id}/edit', 'AdminClientContactController@edit')->name('admin.contact.edit');
+            Route::patch('/{id}/edit', 'AdminClientContactController@update')->name('admin.contact.edit.submit');
+        });
     });
+
+    Route::prefix('paymenttypes')->group(function() {
+        Route::get('/', 'AdminPaymentTypeController@index')->name('admin.payments.index');
+        Route::get('/create', 'AdminPaymentTypeController@create')->name('admin.payments.create');
+        Route::post('/create', 'AdminPaymentTypeController@store')->name('admin.payments.create.submit');
+        Route::get('/show', 'AdminPaymentTypeController@show')->name('admin.payments.show');
+        Route::get('/{id}/edit', 'AdminPaymentTypeController@edit')->name('admin.payments.edit');
+        Route::patch('/{id}/edit', 'AdminPaymentTypeController@update')->name('admin.payments.edit.submit');
+    });
+
+    Route::prefix('invoices')->group(function() {
+        Route::get('/', 'AdminInvoiceController@index')->name('admin.invoice.index');
+        Route::get('/create', 'AdminInvoiceController@create')->name('admin.invoice.create');
+        Route::post('/create', 'AdminInvoiceController@store')->name('admin.invoice.create.submit');
+        Route::get('/{id}', 'AdminInvoiceController@show')->name('admin.invoice.show');
+        Route::get('/{id}/edit', 'AdminInvoiceController@edit')->name('admin.invoice.edit');
+        Route::patch('/{id}/edit', 'AdminInvoiceController@update')->name('admin.invoice.edit.submit');
+    });
+
+    Route::prefix('taxes')->group(function() {
+        Route::get('/', 'AdminTaxController@index')->name('admin.tax.index');
+        Route::get('/create', 'AdminTaxController@create')->name('admin.tax.create');
+        Route::post('/create', 'AdminTaxController@store')->name('admin.tax.create.submit');
+        Route::get('/{id}', 'AdminTaxController@show')->name('admin.tax.show');
+        Route::get('/{id}/edit', 'AdminTaxController@edit')->name('admin.tax.edit');
+        Route::delete('/{id}/delete', 'AdminTaxController@destroy')->name('admin.tax.delete');
+        Route::patch('/{id}/edit', 'AdminTaxController@update')->name('admin.tax.edit.submit');
+    });
+
+
 });
