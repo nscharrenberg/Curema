@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call('CurrencySeeder');
         $this->command->info('Seeded the currencies!');
+
+        $this->call('AdminSeeder');
+        $this->command->info('Seeded the admin!');
     }
 }
