@@ -25,7 +25,6 @@ class CreateClientsTable extends Migration
             $table->string('address');
             $table->string('website')->nullable();
             $table->boolean('active')->default(true);
-            $table->integer('lead_id')->nullable();
             $table->integer('billing_country_id')->references('id')->on('countries')->nullable();
             $table->string('billing_address')->nullable();
             $table->string('billing_city')->nullable();

@@ -23,14 +23,12 @@ class CreateAdminsTable extends Migration
             $table->mediumText('facebook')->nullable();
             $table->mediumText('linkedin')->nullable();
             $table->string('skype')->nullable();
-            $table->integer('admin')->default(0);
-            $table->integer('is_not_staff')->default(0);
+            $table->boolean('admin')->default(false);
             $table->integer('role')->nullable();
             $table->string('default_language')->default('english');
             $table->boolean('active')->default(true);
             $table->string('media_path_slug')->nullable();
             $table->string('profile_image')->nullable();
-            $table->string('direction')->nullable();
             $table->decimal('hourly_rate')->default(0.00);
             $table->text('email_signature')->nullable();
             $table->rememberToken();

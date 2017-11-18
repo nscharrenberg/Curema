@@ -48,7 +48,7 @@ class AdminUserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(UserCreateRequest $request)
     {
@@ -90,25 +90,28 @@ class AdminUserController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($clientid, $id)
+    public function edit($client, $id)
     {
        $contact = User::findOrFail($id);
        $languages = Language::pluck('name', 'id')->all();
        return view('admin.clients.contacts.edit', compact('contact', 'languages'));
     }
 
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $clientid
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $clientid, $id)
     {

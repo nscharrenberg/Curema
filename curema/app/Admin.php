@@ -34,4 +34,17 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }
+
+    public function language() {
+        return $this->hasOne('App\Language', 'default_language');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
+    }
+
+    public function invoices() {
+        return $this->hasMany('App\Invoice', 'sales_agent');
+    }
 }

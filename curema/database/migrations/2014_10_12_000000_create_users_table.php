@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->string('title')->nullable();
             $table->boolean('active')->default(true);
             $table->string('profile_image')->nullable();
-            $table->string('direction')->nullable();
             $table->string('default_language')->default('english');
             $table->rememberToken();
             $table->timestamps();

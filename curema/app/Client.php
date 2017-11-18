@@ -24,4 +24,20 @@ class Client extends Model
     public function country() {
         return $this->belongsTo('App\Country', 'country_id');
     }
+
+    public function billing_country() {
+        return $this->belongsTo('App\Country', 'billing_country_id');
+    }
+
+    public function shipping_country() {
+        return $this->belongsTo('App\Country', 'shipping_country_id');
+    }
+
+    public function invoices() {
+        return $this->hasMany('App\Invoice', 'client_id');
+    }
+
+    public function contact_moments() {
+        return $this->hasMany('App\ClientContact', 'client_id');
+    }
 }

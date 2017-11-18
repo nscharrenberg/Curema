@@ -32,4 +32,17 @@ class User extends Authenticatable
     public function client() {
         return $this->belongsTo('App\Client');
     }
+
+    public function invoices() {
+        return $this->hasMany('App\Invoice');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
+    }
+
+    public function contact_moments() {
+        return $this->hasMany('App\ClientContact', 'contact_id');
+    }
 }
