@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" class="style">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}" class="style">
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -38,6 +42,19 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{route('admin.customer.index')}}">Customers</a></li>
+                        <li><a href="{{route('admin.invoice.index')}}">Invoices</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                               Settings <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{route('admin.payments.index')}}">Payment Methods</a>
+                                    <a href="{{route('admin.tax.index')}}">Taxes</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     @endauth
                     <!-- Right Side Of Navbar -->
@@ -78,5 +95,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
+
 </body>
 </html>
