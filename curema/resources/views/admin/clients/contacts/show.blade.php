@@ -20,6 +20,9 @@
             <div class="coll-md-12 pull-right">
                 <div class="panel-heading"><a href="{{route('admin.customer.contact.create', $client->id)}}" class="btn btn-primary"> Create new Contact for {{$client->company}}</a></div>
             </div>
+            <div class="col1-md12 pull-left">
+                <div class="panel-heading"><a href="{{route('admin.contact.show', $client->id)}}" class="btn btn-warning">View Contact Moment</a></div>
+            </div>
             <div class="col-md-12">
 
                 <div class="panel panel-default">
