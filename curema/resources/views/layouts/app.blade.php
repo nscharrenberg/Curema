@@ -52,6 +52,7 @@
                                 <li>
                                     <a href="{{route('admin.payments.index')}}">Payment Methods</a>
                                     <a href="{{route('admin.tax.index')}}">Taxes</a>
+                                    <a href="{{route('admin.leads.status.index')}}">Lead Status</a>
                                 </li>
                             </ul>
                         </li>

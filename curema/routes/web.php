@@ -86,5 +86,18 @@ Route::prefix('admin')->group(function() {
         Route::patch('/{id}/edit', 'AdminTaxController@update')->name('admin.tax.edit.submit');
     });
 
+    Route::prefix('leads')->group(function() {
+
+        Route::prefix('status')->group(function() {
+            Route::get('/', 'AdminLeadStatusController@index')->name('admin.leads.status.index');
+            Route::get('/create', 'AdminLeadStatusController@create')->name('admin.leads.status.create');
+            Route::post('/create', 'AdminLeadStatusController@store')->name('admin.leads.status.create.submit');
+            Route::get('/{id}', 'AdminLeadStatusController@show')->name('admin.leads.status.show');
+            Route::get('/{id}/edit', 'AdminLeadStatusController@edit')->name('admin.leads.status.edit');
+            Route::delete('/{id}/delete', 'AdminLeadStatusController@destroy')->name('admin.leads.status.delete');
+            Route::patch('/{id}/edit', 'AdminLeadStatusController@update')->name('admin.leads.status.edit.submit');
+        });
+    });
+
 
 });
