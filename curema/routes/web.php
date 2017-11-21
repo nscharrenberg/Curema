@@ -97,6 +97,16 @@ Route::prefix('admin')->group(function() {
             Route::delete('/{id}/delete', 'AdminLeadStatusController@destroy')->name('admin.leads.status.delete');
             Route::patch('/{id}/edit', 'AdminLeadStatusController@update')->name('admin.leads.status.edit.submit');
         });
+
+        Route::prefix('sources')->group(function() {
+            Route::get('/', 'AdminLeadSourceController@index')->name('admin.leads.sources.index');
+            Route::get('/create', 'AdminLeadSourceController@create')->name('admin.leads.sources.create');
+            Route::post('/create', 'AdminLeadSourceController@store')->name('admin.leads.sources.create.submit');
+            Route::get('/{id}', 'AdminLeadSourceController@show')->name('admin.leads.sources.show');
+            Route::get('/{id}/edit', 'AdminLeadSourceController@edit')->name('admin.leads.sources.edit');
+            Route::delete('/{id}/delete', 'AdminLeadSourceController@destroy')->name('admin.leads.sources.delete');
+            Route::patch('/{id}/edit', 'AdminLeadSourceController@update')->name('admin.leads.sources.edit.submit');
+        });
     });
 
 
