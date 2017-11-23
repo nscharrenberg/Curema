@@ -43,6 +43,12 @@
                                 {!! Form::text('end_time', null, ['class' => 'form-control', 'id' => 'end_time']) !!}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            {!! Form::label('type_id', 'Contact Type:') !!}
+                            {!! Form::select('type_id', $types,null, ['class' => 'form-control', 'id' => 'date']) !!}
+                        </div>
+                    </div>
                     <div class="form-group">
                         {!! Form::label('notes', 'Notes:') !!}
                         {!! Form::textarea('notes', null, ['class' => 'form-control']) !!}

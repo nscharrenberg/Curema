@@ -86,6 +86,16 @@ Route::prefix('admin')->group(function() {
         Route::patch('/{id}/edit', 'AdminTaxController@update')->name('admin.tax.edit.submit');
     });
 
+    Route::prefix('contact_types')->group(function() {
+        Route::get('/', 'AdminClientContactTypeController@index')->name('admin.contacts.types.index');
+        Route::get('/create', 'AdminClientContactTypeController@create')->name('admin.contacts.types.create');
+        Route::post('/create', 'AdminClientContactTypeController@store')->name('admin.contacts.types.create.submit');
+        Route::get('/{id}', 'AdminClientContactTypeController@show')->name('admin.contacts.types.show');
+        Route::get('/{id}/edit', 'AdminClientContactTypeController@edit')->name('admin.contacts.types.edit');
+        Route::patch('/{id}/edit', 'AdminClientContactTypeController@update')->name('admin.contacts.types.edit.submit');
+        Route::delete('/{id}/delete', 'AdminClientContactTypeController@destroy')->name('admin.contacts.types.delete');
+    });
+
     Route::prefix('leads')->group(function() {
 
         Route::prefix('status')->group(function() {

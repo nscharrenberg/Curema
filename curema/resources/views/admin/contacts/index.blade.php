@@ -35,6 +35,8 @@
                             <th>Start</th>
                             <th>End</th>
                             <th>Notes</th>
+                            <th>Status</th>
+                            <th>Werknemer</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -49,6 +51,8 @@
                                     <td>{{$contact->start_time}}</td>
                                     <td>{{$contact->end_time}}</td>
                                     <td>{{$contact->notes}}</td>
+                                    <td>{{$contact->type->name}}</td>
+                                    <td>{{$contact->employee->FullName}}</td>
                                     <td>
                                         <a href="{{route('admin.contact.edit', [$contact->client->id, $contact->id])}}" class="btn btn-warning btn-xs">Edit</a>
                                     </td>

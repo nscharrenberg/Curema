@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClientContact extends Model
 {
     protected $fillable = [
-      'client_id', 'contact_id', 'date', 'start_time', 'end_time', 'notes'
+      'client_id', 'contact_id', 'date', 'start_time', 'end_time', 'notes', 'type_id', 'staff_id'
     ];
 
     protected $dates = ['date'];
@@ -18,5 +18,13 @@ class ClientContact extends Model
 
     public function contact() {
         return $this->belongsTo('App\User', 'contact_id');
+    }
+
+    public function type() {
+        return $this->belongsTo('App\ClientContactType', 'type_id');
+    }
+
+    public function employee() {
+        return $this->belongsTo('App\Admin', 'staff_id');
     }
 }

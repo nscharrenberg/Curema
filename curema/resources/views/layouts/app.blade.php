@@ -55,6 +55,7 @@
                                     <a href="{{route('admin.tax.index')}}">Taxes</a>
                                     <a href="{{route('admin.leads.status.index')}}">Lead Status</a>
                                     <a href="{{route('admin.leads.sources.index')}}">Lead Sources</a>
+                                    <a href="{{route('admin.contacts.types.index')}}">Contact Types</a>
                                 </li>
                             </ul>
                         </li>

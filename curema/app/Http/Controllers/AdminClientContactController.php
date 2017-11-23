@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\ClientContact;
+use App\ClientContactType;
 use App\Http\Requests\ContactMomentCreateRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +12,16 @@ use Illuminate\Support\Facades\Session;
 
 class AdminClientContactController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +41,10 @@ class AdminClientContactController extends Controller
     public function create($id)
     {
         $client = Client::findOrFail($id);
+        $types = ClientContactType::pluck('name', 'id')->all();
         $contacts = $client->users->pluck('fullname', 'id');
 
-        return view('admin.contacts.create', compact('client', 'contacts'));
+        return view('admin.contacts.create', compact('client', 'contacts', 'types'));
     }
 
     /**
@@ -52,7 +64,8 @@ class AdminClientContactController extends Controller
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
             'notes' => $request->notes,
-            'staff_id' => $request->staff_id
+            'staff_id' => $request->staff_id,
+            'type_id' => $request->type_id
         ]);
         return redirect()->action('AdminClientContactController@show', ['id' => $request->client_id])->with('created_clientContact', 'The Contact Moment with ' . $client->company . ' at ' . $clientContact->date . '% has been created');
     }
@@ -81,7 +94,8 @@ class AdminClientContactController extends Controller
         $contactMoment = ClientContact::findOrFail($id);
         $client = Client::findOrFail($contactMoment->client_id);
         $contacts = $client->users->pluck('fullname', 'id');
-        return view('admin.contacts.edit', compact('contactMoment', 'client', 'contacts'));
+        $types = ClientContactType::pluck('name', 'id')->all();
+        return view('admin.contacts.edit', compact('contactMoment', 'client', 'contacts', 'types'));
     }
 
     /**
@@ -101,6 +115,7 @@ class AdminClientContactController extends Controller
         $contactMoment->start_time = $request->start_time;
         $contactMoment->end_time = $request->end_time;
         $contactMoment->notes = $request->notes;
+        $contactMoment->type_id = $request->type_id;
         $contactMoment->save();
 
         return redirect()->action('AdminClientContactController@show', ['id' => $request->client_id])->with('updated_clientContact', 'The Contact Moment with ' . $client->company . ' on ' . $contactMoment->date . '% has been updated');
