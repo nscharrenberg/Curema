@@ -14,7 +14,7 @@ class AddLeadidToClientsTable extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->integer('lead_id')->references('id')->on('leads');
+            $table->integer('lead_id')->references('id')->on('leads')->nullable();
         });
     }
 
