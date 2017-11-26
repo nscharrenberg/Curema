@@ -37,6 +37,10 @@ class Client extends Model
         return $this->hasMany('App\Invoice', 'client_id');
     }
 
+    public function processes() {
+        return $this->belongsToMany('App\Addons\UwvContact', 'uwv_process_contacts', 'contact_id', 'process_id');
+    }
+
     public function contact_moments() {
         return $this->hasMany('App\ClientContact', 'client_id');
     }

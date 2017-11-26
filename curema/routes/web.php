@@ -35,11 +35,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
     Route::prefix('customer')->group(function() {
-        Route::get('/', 'AdminClientController@index')->name('admin.customer.index');
-        Route::get('/create', 'AdminClientController@create')->name('admin.customer.create');
-        Route::post('/create', 'AdminClientController@store')->name('admin.customer.create.submit');
-        Route::get('/{id}/edit', 'AdminClientController@edit')->name('admin.customer.edit');
-        Route::patch('/{id}/edit', 'AdminClientController@update')->name('admin.customer.edit.submit');
+
 
         Route::prefix('{clientId}/contact')->group(function() {
             Route::get('/create', 'AdminUserController@create')->name('admin.customer.contact.create');
@@ -56,6 +52,12 @@ Route::prefix('admin')->group(function() {
             Route::get('/{id}/edit', 'AdminClientContactController@edit')->name('admin.contact.edit');
             Route::patch('/{id}/edit', 'AdminClientContactController@update')->name('admin.contact.edit.submit');
         });
+
+        Route::get('/', 'AdminClientController@index')->name('admin.customer.index');
+        Route::get('/create', 'AdminClientController@create')->name('admin.customer.create');
+        Route::post('/create', 'AdminClientController@store')->name('admin.customer.create.submit');
+        Route::get('/{id}/edit', 'AdminClientController@edit')->name('admin.customer.edit');
+        Route::patch('/{id}/edit', 'AdminClientController@update')->name('admin.customer.edit.submit');
     });
 
     Route::prefix('paymenttypes')->group(function() {
@@ -94,6 +96,38 @@ Route::prefix('admin')->group(function() {
         Route::get('/{id}/edit', 'AdminClientContactTypeController@edit')->name('admin.contacts.types.edit');
         Route::patch('/{id}/edit', 'AdminClientContactTypeController@update')->name('admin.contacts.types.edit.submit');
         Route::delete('/{id}/delete', 'AdminClientContactTypeController@destroy')->name('admin.contacts.types.delete');
+    });
+
+    Route::prefix('uwv')->group(function() {
+        Route::prefix('services')->group(function() {
+            Route::get('/', 'Addons\AdminUwvServiceController@index')->name('admin.uwv.services.index');
+            Route::get('/create', 'Addons\AdminUwvServiceController@create')->name('admin.uwv.services.create');
+            Route::post('/create', 'Addons\AdminUwvServiceController@store')->name('admin.uwv.services.create.submit');
+            Route::get('/{id}', 'Addons\AdminUwvServiceController@show')->name('admin.uwv.services.show');
+            Route::get('/{id}/edit', 'Addons\AdminUwvServiceController@edit')->name('admin.uwv.services.edit');
+            Route::patch('/{id}/edit', 'Addons\AdminUwvServiceController@update')->name('admin.uwv.services.edit.submit');
+            Route::delete('/{id}/delete', 'Addons\AdminUwvServiceController@destroy')->name('admin.uwv.services.delete');
+        });
+
+        Route::prefix('processes')->group(function() {
+            Route::get('/', 'Addons\AdminUwvProcessController@index')->name('admin.uwv.processes.index');
+            Route::get('/create', 'Addons\AdminUwvProcessController@create')->name('admin.uwv.processes.create');
+            Route::post('/create', 'Addons\AdminUwvProcessController@store')->name('admin.uwv.processes.create.submit');
+            Route::get('/{id}', 'Addons\AdminUwvProcessController@show')->name('admin.uwv.processes.show');
+            Route::get('/{id}/edit', 'Addons\AdminUwvProcessController@edit')->name('admin.uwv.processes.edit');
+            Route::patch('/{id}/edit', 'Addons\AdminUwvProcessController@update')->name('admin.uwv.processse.edit.submit');
+            Route::delete('/{id}/delete', 'Addons\AdminUwvProcessController@destroy')->name('admin.uwv.processes.delete');
+        });
+
+        Route::prefix('contacts')->group(function() {
+            Route::get('/', 'Addons\AdminUwvContactController@index')->name('admin.uwv.contacts.index');
+            Route::get('/create', 'Addons\AdminUwvContactController@create')->name('admin.uwv.contacts.create');
+            Route::post('/create', 'Addons\AdminUwvContactController@store')->name('admin.uwv.contacts.create.submit');
+            Route::get('/{id}', 'Addons\AdminUwvContactController@show')->name('admin.uwv.contacts.show');
+            Route::get('/{id}/edit', 'Addons\AdminUwvContactController@edit')->name('admin.uwv.contacts.edit');
+            Route::patch('/{id}/edit', 'Addons\AdminUwvContactController@update')->name('admin.uwv.contacts.edit.submit');
+            Route::delete('/{id}/delete', 'Addons\AdminUwvContactController@destroy')->name('admin.uwv.contacts.delete');
+        });
     });
 
     Route::prefix('leads')->group(function() {
