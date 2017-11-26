@@ -20,5 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AdminSeeder');
         $this->command->info('Seeded the admin!');
+
+        $this->call('LanguageSeeder');
+        $this->command->info('Seeded the languages!');
     }
 }
