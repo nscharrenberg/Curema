@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function() {
         Route::prefix('{clientId}/contact')->group(function() {
             Route::get('/create', 'AdminUserController@create')->name('admin.customer.contact.create');
             Route::post('/create', 'AdminUserController@store')->name('admin.customer.contact.create.submit');
-            Route::get('/show', 'AdminClientcontroller@show')->name('admin.customer.contacts.show');
+            Route::get('/show', 'AdminClientController@show')->name('admin.customer.contacts.show');
             Route::get('/{id}/edit', 'AdminUserController@edit')->name('admin.customer.contact.edit');
             Route::patch('/{id}/edit', 'AdminUserController@update')->name('admin.customer.contact.edit.submit');
         });
