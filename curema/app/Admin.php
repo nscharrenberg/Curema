@@ -18,7 +18,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'firstname', 'lastname', 'phonenumber', 'facebook', 'linkedin', 'skype', 'admin', 'is_not_staff', 'role', 'default_language', 'media_path_slug', 'hourly_rate', 'email_signature', 'active', 'profile_image', 'direction',
+        'name', 'email', 'password', 'firstname', 'lastname', 'phonenumber', 'facebook', 'linkedin', 'skype', 'admin', 'is_not_staff', 'role', 'default_language', 'media_path_slug', 'hourly_rate', 'email_signature', 'active', 'profile_image', 'direction', 'agent'
     ];
 
     /**
@@ -46,5 +46,31 @@ class Admin extends Authenticatable
 
     public function invoices() {
         return $this->hasMany('App\Invoice', 'sales_agent');
+    }
+
+    public static function isAgent($id = null)
+    {
+        if (isset($id)) {
+            $agent = Admin::find($id);
+            if ($agent->agent) {
+                return true;
+            }
+
+            return false;
+        }
+
+        if (auth()->check()) {
+            if (auth()->admin()->agent) {
+                return true;
+            }
+        }
+    }
+
+    public static function isAdmin() {
+        return auth()->check() && auth()->admin()->agent;
+    }
+
+    public function departments() {
+        return $this->belongsToMany('App\Department', 'admin_departments', 'admin_id', 'department_id');
     }
 }

@@ -98,6 +98,26 @@ Route::prefix('admin')->group(function() {
         Route::delete('/{id}/delete', 'AdminClientContactTypeController@destroy')->name('admin.contacts.types.delete');
     });
 
+    Route::prefix('departments')->group(function() {
+        Route::get('/', 'AdminDepartmentController@index')->name('admin.department.index');
+        Route::get('/create', 'AdminDepartmentController@create')->name('admin.department.create');
+        Route::post('/create', 'AdminDepartmentController@store')->name('admin.department.create.submit');
+        Route::get('/{id}', 'AdminDepartmentController@show')->name('admin.department.show');
+        Route::get('/{id}/edit', 'AdminDepartmentController@edit')->name('admin.department.edit');
+        Route::delete('/{id}/delete', 'AdminDepartmentController@destroy')->name('admin.department.delete');
+        Route::patch('/{id}/edit', 'AdminDepartmentController@update')->name('admin.department.edit.submit');
+    });
+
+    Route::prefix('employees')->group(function() {
+        Route::get('/', 'AdminEmployeeController@index')->name('admin.employee.index');
+        Route::get('/create', 'AdminEmployeeController@create')->name('admin.employee.create');
+        Route::post('/create', 'AdminEmployeeController@store')->name('admin.employee.create.submit');
+        Route::get('/{id}', 'AdminEmployeeController@show')->name('admin.employee.show');
+        Route::get('/{id}/edit', 'AdminEmployeeController@edit')->name('admin.employee.edit');
+        Route::delete('/{id}/delete', 'AdminEmployeeController@destroy')->name('admin.employee.delete');
+        Route::patch('/{id}/edit', 'AdminEmployeeController@update')->name('admin.employee.edit.submit');
+    });
+
     Route::prefix('uwv')->group(function() {
         Route::prefix('services')->group(function() {
             Route::get('/', 'Addons\AdminUwvServiceController@index')->name('admin.uwv.services.index');
