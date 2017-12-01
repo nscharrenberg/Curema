@@ -150,6 +150,28 @@ Route::prefix('admin')->group(function() {
         });
     });
 
+    Route::prefix('tickets')->group(function() {
+        Route::prefix('priorities')->group(function() {
+            Route::get('/', 'AdminTicketPriorityController@index')->name('admin.tickets.priorities.index');
+            Route::get('/create', 'AdminTicketPriorityController@create')->name('admin.tickets.priorities.create');
+            Route::post('/create', 'AdminTicketPriorityController@store')->name('admin.tickets.priorities.create.submit');
+            Route::get('/{id}', 'AdminTicketPriorityController@show')->name('admin.tickets.priorities.show');
+            Route::get('/{id}/edit', 'AdminTicketPriorityController@edit')->name('admin.tickets.priorities.edit');
+            Route::patch('/{id}/edit', 'AdminTicketPriorityController@update')->name('admin.tickets.priorities.edit.submit');
+            Route::delete('/{id}/delete', 'AdminTicketPriorityController@destroy')->name('admin.tickets.priorities.delete');
+        });
+
+        Route::prefix('statusses')->group(function() {
+            Route::get('/', 'AdminTicketStatusController@index')->name('admin.tickets.statusses.index');
+            Route::get('/create', 'AdminTicketStatusController@create')->name('admin.tickets.statusses.create');
+            Route::post('/create', 'AdminTicketStatusController@store')->name('admin.tickets.statusses.create.submit');
+            Route::get('/{id}', 'AdminTicketStatusController@show')->name('admin.tickets.statusses.show');
+            Route::get('/{id}/edit', 'AdminTicketStatusController@edit')->name('admin.tickets.statusses.edit');
+            Route::patch('/{id}/edit', 'AdminTicketStatusController@update')->name('admin.tickets.statusses.edit.submit');
+            Route::delete('/{id}/delete', 'AdminTicketStatusController@destroy')->name('admin.tickets.statusses.delete');
+        });
+    });
+
     Route::prefix('leads')->group(function() {
 
         Route::prefix('status')->group(function() {

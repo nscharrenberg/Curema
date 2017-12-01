@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\TicketPriority;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminTicketPriorityController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,18 +47,10 @@ class AdminTicketPriorityController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $input = $request->all();
+        $priority = TicketPriority::create($input);
+        Session::flash('created_ticket_priority', 'The Ticket Priority ' . $priority->name  . ' has been created');
+        return redirect('/admin/tickets/priorities');
     }
 
     /**
@@ -58,7 +61,8 @@ class AdminTicketPriorityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $priority = TicketPriority::findOrFail($id);
+        return view('admin.tickets.priorities.edit', compact('priority'));
     }
 
     /**
@@ -70,7 +74,11 @@ class AdminTicketPriorityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $priority = TicketPriority::findOrFail($id);
+        $priority->update($input);
+        Session::flash('updated_ticket_priority', 'The Ticket Priority ' . $priority->name . ' has been updated');
+        return redirect('/admin/tickets/priorities');
     }
 
     /**
@@ -81,6 +89,9 @@ class AdminTicketPriorityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $priority = TicketPriority::findOrFail($id);
+        $priority->delete();
+        Session::flash('deleted_ticket_priority', 'Ticket Priority has been deleted!');
+        return redirect('/admin/tickets/priorities');
     }
 }
