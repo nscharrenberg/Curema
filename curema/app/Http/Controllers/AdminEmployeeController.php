@@ -73,12 +73,15 @@ class AdminEmployeeController extends Controller
             'email_signature' => $request->email_signature
         ]);
 
-        foreach($request->departments as $department) {
-            AdminDepartment::create([
-               'department_id' => $department,
-               'admin_id' => $employee->id
-            ]);
+        if($request->departments) {
+            foreach($request->departments as $department) {
+                AdminDepartment::create([
+                    'department_id' => $department,
+                    'admin_id' => $employee->id
+                ]);
+            }
         }
+
 
         Session::flash('created_employee', 'The Employee ' . $employee->fullname . ' has been created');
         return redirect('/admin/employees');
@@ -109,7 +112,50 @@ class AdminEmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Admin::findOrfail($id);
+        $employee->firstname = $request->firstname;
+        $employee->lastname = $request->lastname;
+        $employee->email = $request->email;
+        $employee->phonenumber = $request->phonenumber;
+        $employee->facebook = $request->facebook;
+        $employee->linkedin = $request->linkedin;
+        $employee->admin = $request->admin;
+        $employee->default_language = $request->default_language;
+        $employee->active = $request->active;
+        $employee->agent = $request->agent;
+        $employee->hourly_rate = $request->hourly_rate;
+        $employee->email_signature = $request->email_signature;
+        if ($request->password) {
+            $employee->password = bcrypt($request->password);
+        }
+        $employee->update();
+
+        if($request->departments) {
+            foreach (Department::all() as $department) {
+                /*
+                 * Find the department Id value from the $request->departments array, which will return the key for the $requests->departments array.
+                 * It then iterates through the $requests->departments id per key and compares it's value with the departments Id it is currently at.
+                 * If it's found it'll search wether it exists already and else it'll create one.
+                 * If it's not found it'll search wether it exists and if it does, it'll delete it from the database.
+                 */
+                if ($department->id == $request->departments[array_search($department->id, $request->departments)]) {
+                    echo "1Here";
+                    // Add or do not
+                    AdminDepartment::firstOrcreate([
+                        'department_id' => $department->id,
+                        'admin_id' => $employee->id
+                    ]);
+                } else {
+                    echo "No Here";
+                    AdminDepartment::whereDepartmentId($department->id)->whereAdminId($employee->id)->delete();
+                }
+            }
+        } else {
+            AdminDepartment::whereAdminId($employee->id)->delete();
+        }
+
+        Session::flash('updated_employee', 'The Employee ' . $employee->fullname . ' has been updated');
+        return redirect('/admin/employees');
     }
 
     /**
@@ -120,6 +166,20 @@ class AdminEmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Admin::findOrFail($id);
+        if(!$employee->active && !$employee->admin) {
+            $employee->delete();
+
+            Session::flash('deleted_employee', 'The Employee ' . $employee->firstname . ' ' . $employee->lastname . ' has been deleted!');
+            return redirect('/admin/employees');
+        } else if ($employee->admin) {
+            Session::flash('admin_employee', 'The Employee ' . $employee->firstname . ' ' . $employee->lastname . ' is an Administrator and cannot be deleted!');
+            return redirect('/admin/employees');
+        } else {
+            Session::flash('active_employee', 'The Employee ' . $employee->firstname . ' ' . $employee->lastname . ' is an active employee and cannot be deleted!');
+            return redirect('/admin/employees');
+        }
+
+
     }
 }

@@ -5,21 +5,35 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
-    @if(Session::has('created_department'))
+    @if(Session::has('created_employee'))
         <div class="alert alert-success">
-            <p>{{session('created_department')}}</p>
+            <p>{{session('created_employee')}}</p>
         </div>
     @endif
 
-    @if(Session::has('updated_department'))
+    @if(Session::has('updated_employee'))
         <div class="alert alert-success">
-            <p>{{session('updated_department')}}</p>
+            <p>{{session('updated_employee')}}</p>
         </div>
     @endif
 
-    @if(Session::has('deleted_department'))
+    @if(Session::has('deleted_employee'))
         <div class="alert alert-success">
-            <p>{{session('deleted_department')}}</p>
+            <p>{{session('deleted_employee')}}</p>
+        </div>
+    @endif
+
+
+    @if(Session::has('admin_employee'))
+        <div class="alert alert-danger">
+            <p>{{session('admin_employee')}}</p>
+        </div>
+    @endif
+
+
+    @if(Session::has('active_employee'))
+        <div class="alert alert-danger">
+            <p>{{session('active_employee')}}</p>
         </div>
     @endif
 
@@ -62,6 +76,12 @@
 
                                     <td>
                                         <a href="{{route('admin.employee.edit', $admin->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        @if(!$admin->active || !$admin->admin)
+                                            {!! Form::model($admin, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $admin->id]]) !!}
+                                            {!! Form::hidden('', $admin->id) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::close() !!}
+                                            @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -107,6 +127,12 @@
 
                                     <td>
                                         <a href="{{route('admin.employee.edit', $agent->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        @if(!$agent->active || !$agent->admin)
+                                            {!! Form::model($agent, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $agent->id]]) !!}
+                                            {!! Form::hidden('', $agent->id) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::close() !!}
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -152,6 +178,12 @@
 
                                     <td>
                                         <a href="{{route('admin.employee.edit', $employee->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        @if(!$admin->active || !$admin->admin)
+                                            {!! Form::model($employee, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $employee->id]]) !!}
+                                            {!! Form::hidden('', $employee->id) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::close() !!}
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
