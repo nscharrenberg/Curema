@@ -99,13 +99,13 @@ Route::prefix('admin')->group(function() {
     });
 
     Route::prefix('departments')->group(function() {
-        Route::get('/', 'AdminDepartmentController@index')->name('admin.department.index');
-        Route::get('/create', 'AdminDepartmentController@create')->name('admin.department.create');
-        Route::post('/create', 'AdminDepartmentController@store')->name('admin.department.create.submit');
-        Route::get('/{id}', 'AdminDepartmentController@show')->name('admin.department.show');
-        Route::get('/{id}/edit', 'AdminDepartmentController@edit')->name('admin.department.edit');
-        Route::delete('/{id}/delete', 'AdminDepartmentController@destroy')->name('admin.department.delete');
-        Route::patch('/{id}/edit', 'AdminDepartmentController@update')->name('admin.department.edit.submit');
+        Route::get('/', 'AdminDepartmentController@index')->name('admin.departments.index');
+        Route::get('/create', 'AdminDepartmentController@create')->name('admin.departments.create');
+        Route::post('/create', 'AdminDepartmentController@store')->name('admin.departments.create.submit');
+        Route::get('/{id}', 'AdminDepartmentController@show')->name('admin.departments.show');
+        Route::get('/{id}/edit', 'AdminDepartmentController@edit')->name('admin.departments.edit');
+        Route::delete('/{id}/delete', 'AdminDepartmentController@destroy')->name('admin.departments.delete');
+        Route::patch('/{id}/edit', 'AdminDepartmentController@update')->name('admin.departments.edit.submit');
     });
 
     Route::prefix('employees')->group(function() {

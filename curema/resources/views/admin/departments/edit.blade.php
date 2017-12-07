@@ -19,21 +19,21 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Create Department</div>
-                    {!! Form::open(['method' => 'POST', 'action' => 'AdminDepartmentController@store']) !!}
+                    {!! Form::open(['method' => 'PATCH', 'action' => ['AdminDepartmentController@update', $department->id]]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('name', $department->name, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('color_code', 'Color:') !!}
-                        {!! Form::text('color_code', null, ['class' => 'form-control', 'id' => 'color_code', 'value' => '#FFFFF', 'data-color-format' => 'hex']) !!}
+                        {!! Form::text('color_code', $department->color_code, ['class' => 'form-control', 'id' => 'color_code', 'value' => '#FFFFF', 'data-color-format' => 'hex']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('agents[]', 'Agents:') !!}
-                        {!! Form::select('agents[]',$agents, null, ['class' => 'form-control selectpicker', 'multiple' => true]) !!}
+                        {!! Form::select('agents[]',$agents, $employeeDepartments, ['class' => 'form-control selectpicker', 'multiple' => true]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Create Department', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Department', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}

@@ -2,7 +2,6 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)

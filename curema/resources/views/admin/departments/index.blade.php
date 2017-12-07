@@ -23,7 +23,7 @@
         <div class="row">
 
             <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.department.create')}}" class="btn btn-primary"> New Department</a></div>
+                <div class="panel-heading"><a href="{{route('admin.departments.create')}}" class="btn btn-primary"> New Department</a></div>
             </div>
             <div class="col-md-12">
 
@@ -51,13 +51,8 @@
                                         @else
                                         <td>None</td>
                                         @endif
-
                                     <td>
-                                        <a href="{{route('admin.tax.edit', $department->id)}}" class="btn btn-warning btn-xs">Edit</a>
-                                        {!! Form::model($department, ['method' => 'DELETE', 'action' => ['AdminDepartmentController@destroy', $department->id]]) !!}
-                                        {!! Form::hidden('', $department->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                                        {!! Form::close() !!}
+                                        <a href="{{route('admin.departments.edit', $department->id)}}" class="btn btn-warning btn-xs">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

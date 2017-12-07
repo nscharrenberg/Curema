@@ -55,12 +55,14 @@ class AdminDepartmentController extends Controller
             'color_code' => $request->color_code
         ]);
 
-        foreach ($request->agents as $agent) {
-            if ($agent != null) {
-                AdminDepartment::create([
-                    'department_id' => $department->id,
-                    'admin_id' => $agent->id
-                ]);
+        if($request->agents) {
+            foreach ($request->agents as $agent) {
+                if ($agent != null) {
+                    AdminDepartment::create([
+                        'department_id' => $department->id,
+                        'admin_id' => $agent->id
+                    ]);
+                }
             }
         }
         Session::flash('created_department', 'The department ' . $department->name . ' has been created');
@@ -76,7 +78,9 @@ class AdminDepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::findOrFail($id);
-        return view('admin.departments.edit', compact('department'));
+        $agents = Admin::where('agent', '1')->get(['id', 'firstname', 'lastname'])->pluck('fullname', 'id')->prepend('Select An Agent to this Department', '');
+        $employeeDepartments = $department->agents;
+        return view('admin.departments.edit', compact('department', 'agents', 'employeeDepartments'));
     }
 
     /**
@@ -88,9 +92,33 @@ class AdminDepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
         $department = Department::findOrFail($id);
-        $department->update($input);
+        $department->name = $request->name;
+        $department->color_code = $request->color_code;
+        $department->update();
+
+        if($request->agents) {
+            foreach (Admin::all() as $agent) {
+                /*
+                 * Find the Admin Id value from the $request->agents array, which will return the key for the $requests->agents array.
+                 * It then iterates through the $requests->agents id per key and compares it's value with the admin Id it is currently at.
+                 * If it's found it'll search wether it exists already and else it'll create one.
+                 * If it's not found it'll search wether it exists and if it does, it'll delete it from the database.
+                 */
+                if ($agent->id == $request->agents[array_search($agent->id, $request->agents)]) {
+                    // Add or do not
+                    AdminDepartment::firstOrcreate([
+                        'admin_id' => $agent->id,
+                        'department_id' => $department->id
+                    ]);
+                } else {
+                    AdminDepartment::whereDepartmentId($department->id)->whereAdminId($agent->id)->delete();
+                }
+            }
+        } else {
+            AdminDepartment::whereDepartmentId($department->id)->delete();
+        }
+
         Session::flash('updated_department', 'The department ' . $department->name . ' has been updated');
         return redirect('/admin/departments');
     }

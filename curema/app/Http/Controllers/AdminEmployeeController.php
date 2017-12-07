@@ -139,14 +139,12 @@ class AdminEmployeeController extends Controller
                  * If it's not found it'll search wether it exists and if it does, it'll delete it from the database.
                  */
                 if ($department->id == $request->departments[array_search($department->id, $request->departments)]) {
-                    echo "1Here";
                     // Add or do not
                     AdminDepartment::firstOrcreate([
                         'department_id' => $department->id,
                         'admin_id' => $employee->id
                     ]);
                 } else {
-                    echo "No Here";
                     AdminDepartment::whereDepartmentId($department->id)->whereAdminId($employee->id)->delete();
                 }
             }

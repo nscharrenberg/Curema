@@ -70,6 +70,7 @@
                                     <a href="{{route('admin.leads.status.index')}}">Lead Status</a>
                                     <a href="{{route('admin.leads.sources.index')}}">Lead Sources</a>
                                     <a href="{{route('admin.contacts.types.index')}}">Contact Types</a>
+                                    <a href="{{route('admin.departments.index')}}">Departments</a>
                                 </li>
                             </ul>
                         </li>
