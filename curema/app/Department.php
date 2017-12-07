@@ -11,4 +11,5 @@ class Department extends Model
     public function agents() {
         return $this->belongsToMany('App\Admin', 'admin_departments', 'department_id', 'admin_id')->where('agent', '1');
     }
+
 }

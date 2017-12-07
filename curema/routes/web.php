@@ -19,14 +19,26 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/client/logout', 'Auth\LoginController@userLogout')->name('client.logout');
-Route::get('/myinvoices', 'ClientInvoiceController@index')->name('client.invoices');
+Route::get('/invoices', 'ClientInvoiceController@index')->name('client.invoices');
 Route::get('/invoice/{id}', 'ClientInvoiceController@show')->name('client.invoice.show');
+
+
+Route::prefix('tickets')->group(function() {
+    Route::get('/', 'ClientTicketController@index')->name('client.tickets.index');
+    Route::get('/create', 'ClientTicketController@create')->name('client.tickets.create');
+    Route::post('/create', 'ClientTicketController@store')->name('client.tickets.create.submit');
+    Route::get('/{id}', 'ClientTicketController@show')->name('client.tickets.show');
+    Route::patch('/{id}', 'ClientTicketController@status')->name('client.tickets.edit.status');
+    Route::get('/{id}/edit', 'ClientTicketController@edit')->name('client.tickets.edit');
+    Route::patch('/{id}/edit', 'ClientTicketController@update')->name('client.customer.contact.edit.submit');
+});
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
+
 
     // Password reset routes
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -170,6 +182,11 @@ Route::prefix('admin')->group(function() {
             Route::patch('/{id}/edit', 'AdminTicketStatusController@update')->name('admin.tickets.statuses.edit.submit');
             Route::delete('/{id}/delete', 'AdminTicketStatusController@destroy')->name('admin.tickets.statuses.delete');
         });
+
+        Route::get('/', 'AdminTicketController@index')->name('admin.tickets.index');
+        Route::get('/{id}', 'AdminTicketController@show')->name('admin.tickets.show');
+        Route::patch('/{id}', 'AdminTicketController@status')->name('admin.tickets.edit.status');
+        Route::patch('/{id}/claim', 'AdminTicketController@claim')->name('admin.tickets.edit.claim');
     });
 
     Route::prefix('leads')->group(function() {
@@ -202,6 +219,4 @@ Route::prefix('admin')->group(function() {
         Route::delete('/{id}/delete', 'AdminLeadController@destroy')->name('admin.leads.delete');
         Route::patch('/{id}/edit', 'AdminLeadController@update')->name('admin.leads.edit.submit');
     });
-
-
 });
