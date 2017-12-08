@@ -32,4 +32,9 @@ class Ticket extends Model
     public function summary() {
         return Str::words($this->content, $words = 10, $end = '...');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\TicketComment', 'ticket_id');
+    }
 }

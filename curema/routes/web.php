@@ -29,8 +29,10 @@ Route::prefix('tickets')->group(function() {
     Route::post('/create', 'ClientTicketController@store')->name('client.tickets.create.submit');
     Route::get('/{id}', 'ClientTicketController@show')->name('client.tickets.show');
     Route::patch('/{id}', 'ClientTicketController@status')->name('client.tickets.edit.status');
+    Route::post('/{id}', 'ClientTicketController@storeComment')->name('client.tickets.comment.create');
     Route::get('/{id}/edit', 'ClientTicketController@edit')->name('client.tickets.edit');
     Route::patch('/{id}/edit', 'ClientTicketController@update')->name('client.customer.contact.edit.submit');
+
 });
 
 Route::prefix('admin')->group(function() {
@@ -187,6 +189,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/{id}', 'AdminTicketController@show')->name('admin.tickets.show');
         Route::patch('/{id}', 'AdminTicketController@status')->name('admin.tickets.edit.status');
         Route::patch('/{id}/claim', 'AdminTicketController@claim')->name('admin.tickets.edit.claim');
+        Route::post('/{id}', 'AdminTicketCommentController@store')->name('admin.tickets.comment.create');
     });
 
     Route::prefix('leads')->group(function() {

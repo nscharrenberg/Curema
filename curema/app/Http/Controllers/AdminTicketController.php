@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Ticket;
+use App\TicketComment;
 use App\TicketPriority;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,8 @@ class AdminTicketController extends Controller
     public function show($id)
     {
         $ticket = Ticket::findOrFail($id);
-        return view('admin.tickets.show', compact('ticket'));
+        $comments = $ticket->comments;
+        return view('admin.tickets.show', compact('ticket', 'comments'));
     }
 
     /**

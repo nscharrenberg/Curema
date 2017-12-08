@@ -24,6 +24,12 @@
             <p>{{session('updated_completion')}}</p>
         </div>
     @endif
+
+    @if(Session::has('created_comment'))
+        <div class="alert alert-success">
+            <p>{{session('created_comment')}}</p>
+        </div>
+    @endif
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -66,6 +72,51 @@
                         <p> {!! $ticket->content !!} </p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        @if(count($comments) > 0)
+            @foreach($comments as $comment)
+                <div class="panel {!! $comment->agent ? "panel-info" : "panel-default" !!}">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            @if($comment->user)
+                                {{$comment->user->fullName}}
+                            @else
+                                {{$comment->agent->fullName}}
+                            @endif
+
+                            <span class="pull-right"> {!! $comment->created_at->diffForHumans() !!} </span>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="content">
+                            <p> {!! $comment->content !!} </p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {!! Form::open(['method' => 'POST', 'action' => ['ClientTicketController@storeComment', $ticket->id], 'class' => 'form-horizontal']) !!}
+                {!! Form::hidden('ticket_id', $ticket->id ) !!}
+
+                <fieldset>
+                    <legend>Reply:</legend>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            {!! Form::textarea('content_body', null, ['class' => 'form-control', 'rows' => "3"]) !!}
+                        </div>
+                    </div>
+
+                    <div class="text-right col-md-12">
+                        {!! Form::submit('Send Reply!', ['class' => 'btn btn-primary']) !!}
+                    </div>
+
+                </fieldset>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

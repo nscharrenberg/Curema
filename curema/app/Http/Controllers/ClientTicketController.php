@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use App\Ticket;
+use App\TicketComment;
 use App\TicketPriority;
 use App\TicketStatus;
 use Illuminate\Http\Request;
@@ -70,6 +71,24 @@ class ClientTicketController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeComment(Request $request)
+    {
+        $comment = TicketComment::create([
+            'user_id' => auth()->user()->id,
+            'ticket_id' => $request->ticket_id,
+            'content' => $request->content_body
+        ]);
+
+        Session::flash('created_comment', 'Your comment has been placed.');
+        return redirect('/tickets/' . $comment->ticket_id);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -78,7 +97,8 @@ class ClientTicketController extends Controller
     public function show($id)
     {
         $ticket = Ticket::findOrFail($id);
-        return view('client.tickets.show', compact('ticket'));
+        $comments = $ticket->comments;
+        return view('client.tickets.show', compact('ticket', 'comments'));
     }
 
     /**
