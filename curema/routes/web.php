@@ -222,4 +222,14 @@ Route::prefix('admin')->group(function() {
         Route::delete('/{id}/delete', 'AdminLeadController@destroy')->name('admin.leads.delete');
         Route::patch('/{id}/edit', 'AdminLeadController@update')->name('admin.leads.edit.submit');
     });
+
+    Route::prefix('announcements')->group(function() {
+        Route::get('/', 'AdminAnnouncementController@index')->name('admin.announcements.index');
+        Route::get('/create', 'AdminAnnouncementController@create')->name('admin.announcements.create');
+        Route::post('/create', 'AdminAnnouncementController@store')->name('admin.announcements.create.submit');
+        Route::get('/{id}', 'AdminAnnouncementController@show')->name('admin.announcements.show');
+        Route::get('/{id}/edit', 'AdminAnnouncementController@edit')->name('admin.announcements.edit');
+        Route::delete('/{id}/delete', 'AdminAnnouncementController@destroy')->name('admin.announcements.delete');
+        Route::patch('/{id}/edit', 'AdminAnnouncementController@update')->name('admin.announcements.edit.submit');
+    });
 });
