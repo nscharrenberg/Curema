@@ -88,7 +88,25 @@
             </div>
         </div>
     </nav>
-
+    @if(auth()->user()->id)
+        <?php $announcements = \App\Announcement::user_announcements(); ?>
+        @if(count($announcements) > 0)
+            @foreach($announcements as $announcement)
+                <div class="alert alert-info">
+                    <div class="pull-right">{{$announcements->render()}}</div>
+                    <p><strong>{{$announcement->subject}}</strong></p>
+                    <p>{{$announcement->content}}</p>
+                    @if($announcement->showMyName)
+                        @if($announcement->admin->email_signature)
+                        <p>{{$announcement->admin->email_signature}}</p>
+                            @else
+                            <p>{{$announcement->admin->fullName}}</p>
+                            @endif
+                        @endif
+                </div>
+                @endforeach
+            @endif
+        @endif
     @yield('content')
 </div>
 
