@@ -43,6 +43,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{route('admin.customer.index')}}">Customers</a></li>
                         <li><a href="{{route('admin.invoice.index')}}">Invoices</a></li>
+                        <li><a href="{{route('admin.estimates.index')}}">Estimates</a></li>
                         <li><a href="{{route('admin.leads.index')}}">Leads</a></li>
                         <li><a href="{{route('admin.employee.index')}}">Employees</a></li>
                         <li><a href="{{route('admin.tickets.index')}}">Tickets</a></li>
@@ -109,23 +110,25 @@
                 </div>
             </div>
         </nav>
-        @if(auth()->user()->admin)
-            <?php $announcements = \App\Announcement::staff_announcements(); ?>
-            @if(count($announcements) > 0)
-                @foreach($announcements as $announcement)
-                    <div class="alert alert-info">
-                        <div class="pull-right">{{$announcements->render()}}</div>
-                        <p><strong>{{$announcement->subject}}</strong></p>
-                        <p>{{$announcement->content}}</p>
-                        @if($announcement->showMyName)
-                            @if($announcement->admin->email_signature)
-                                <p>{{$announcement->admin->email_signature}}</p>
-                            @else
-                                <p>{{$announcement->admin->fullName}}</p>
+        @if(auth()->check())
+            @if(auth()->user()->admin)
+                <?php $announcements = \App\Announcement::staff_announcements(); ?>
+                @if(count($announcements) > 0)
+                    @foreach($announcements as $announcement)
+                        <div class="alert alert-info">
+                            <div class="pull-right">{{$announcements->render()}}</div>
+                            <p><strong>{{$announcement->subject}}</strong></p>
+                            <p>{{$announcement->content}}</p>
+                            @if($announcement->showMyName)
+                                @if($announcement->admin->email_signature)
+                                    <p>{{$announcement->admin->email_signature}}</p>
+                                @else
+                                    <p>{{$announcement->admin->fullName}}</p>
+                                @endif
                             @endif
-                        @endif
-                    </div>
-                @endforeach
+                        </div>
+                    @endforeach
+                @endif
             @endif
         @endif
         @yield('content')

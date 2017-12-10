@@ -92,6 +92,15 @@ Route::prefix('admin')->group(function() {
         Route::patch('/{id}/edit', 'AdminInvoiceController@update')->name('admin.invoice.edit.submit');
     });
 
+    Route::prefix('estimates')->group(function() {
+        Route::get('/', 'AdminEstimateController@index')->name('admin.estimates.index');
+        Route::get('/create', 'AdminEstimateController@create')->name('admin.estimates.create');
+        Route::post('/create', 'AdminEstimateController@store')->name('admin.estimates.create.submit');
+        Route::get('/{id}', 'AdminEstimateController@show')->name('admin.estimates.show');
+        Route::get('/{id}/edit', 'AdminEstimateController@edit')->name('admin.estimates.edit');
+        Route::patch('/{id}/edit', 'AdminEstimateController@update')->name('admin.estimates.edit.submit');
+    });
+
     Route::prefix('taxes')->group(function() {
         Route::get('/', 'AdminTaxController@index')->name('admin.tax.index');
         Route::get('/create', 'AdminTaxController@create')->name('admin.tax.create');
