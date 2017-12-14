@@ -101,6 +101,26 @@ Route::prefix('admin')->group(function() {
         Route::patch('/{id}/edit', 'AdminEstimateController@update')->name('admin.estimates.edit.submit');
     });
 
+    Route::prefix('expenses')->group(function() {
+        Route::prefix('categories')->group(function() {
+            Route::get('/', 'AdminExpenseCategoryController@index')->name('admin.expenses.categories.index');
+            Route::get('/create', 'AdminExpenseCategoryController@create')->name('admin.expenses.categories.create');
+            Route::post('/create', 'AdminExpenseCategoryController@store')->name('admin.expenses.categories.create.submit');
+            Route::get('/{id}', 'AdminExpenseCategoryController@show')->name('admin.expenses.categories.show');
+            Route::get('/{id}/edit', 'AdminExpenseCategoryController@edit')->name('admin.expenses.categories.edit');
+            Route::patch('/{id}/edit', 'AdminExpenseCategoryController@update')->name('admin.expenses.categories.edit.submit');
+            Route::delete('/{id}/delete', 'AdminExpenseCategoryController@destroy')->name('admin.expenses.categories.delete');
+        });
+
+        Route::get('/', 'AdminExpenseController@index')->name('admin.expenses.index');
+        Route::get('/create', 'AdminExpenseController@create')->name('admin.expenses.create');
+        Route::post('/create', 'AdminExpenseController@store')->name('admin.expenses.create.submit');
+        Route::get('/{id}', 'AdminExpenseController@show')->name('admin.expenses.show');
+        Route::get('/{id}/edit', 'AdminExpenseController@edit')->name('admin.expenses.edit');
+        Route::patch('/{id}/edit', 'AdminExpenseController@update')->name('admin.expenses.edit.submit');
+
+    });
+
     Route::prefix('taxes')->group(function() {
         Route::get('/', 'AdminTaxController@index')->name('admin.tax.index');
         Route::get('/create', 'AdminTaxController@create')->name('admin.tax.create');
