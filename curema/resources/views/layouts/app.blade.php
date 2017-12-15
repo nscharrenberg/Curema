@@ -45,6 +45,7 @@
                         <li><a href="{{route('admin.invoice.index')}}">Invoices</a></li>
                         <li><a href="{{route('admin.estimates.index')}}">Estimates</a></li>
                         <li><a href="{{route('admin.expenses.index')}}">Expenses</a></li>
+                        <li><a href="{{route('admin.contracts.index')}}">Contracts</a></li>
                         <li><a href="{{route('admin.leads.index')}}">Leads</a></li>
                         <li><a href="{{route('admin.employee.index')}}">Employees</a></li>
                         <li><a href="{{route('admin.tickets.index')}}">Tickets</a></li>
@@ -76,6 +77,7 @@
                                     <a href="{{route('admin.expenses.categories.index')}}">Expense Categories</a>
                                     <a href="{{route('admin.departments.index')}}">Departments</a>
                                     <a href="{{route('admin.announcements.index')}}">Announcements</a>
+                                    <a href="{{route('admin.contracts.types.index')}}">Contract Types</a>
                                 </li>
                             </ul>
                         </li>
