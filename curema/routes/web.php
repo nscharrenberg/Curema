@@ -269,4 +269,24 @@ Route::prefix('admin')->group(function() {
         Route::delete('/{id}/delete', 'AdminAnnouncementController@destroy')->name('admin.announcements.delete');
         Route::patch('/{id}/edit', 'AdminAnnouncementController@update')->name('admin.announcements.edit.submit');
     });
+
+    Route::prefix('contracts')->group(function() {
+        Route::prefix('types')->group(function() {
+            Route::get('/', 'AdminContractTypeController@index')->name('admin.contracts.types.index');
+            Route::get('/create', 'AdminContractTypeController@create')->name('admin.contracts.types.create');
+            Route::post('/create', 'AdminContractTypeController@store')->name('admin.contracts.types.create.submit');
+            Route::get('/{id}', 'AdminContractTypeController@show')->name('admin.contracts.types.show');
+            Route::get('/{id}/edit', 'AdminContractTypeController@edit')->name('admin.contracts.types.edit');
+            Route::delete('/{id}/delete', 'AdminContractTypeController@destroy')->name('admin.contracts.types.delete');
+            Route::patch('/{id}/edit', 'AdminContractTypeController@update')->name('admin.contracts.types.edit.submit');
+        });
+
+        Route::get('/', 'AdminContractController@index')->name('admin.contracts.index');
+        Route::get('/create', 'AdminContractController@create')->name('admin.contracts.create');
+        Route::post('/create', 'AdminContractController@store')->name('admin.contracts.create.submit');
+        Route::get('/{id}', 'AdminContractController@show')->name('admin.contracts.show');
+        Route::get('/{id}/edit', 'AdminContractController@edit')->name('admin.contracts.edit');
+        Route::delete('/{id}/delete', 'AdminContractController@destroy')->name('admin.contracts.delete');
+        Route::patch('/{id}/edit', 'AdminContractController@update')->name('admin.contracts.edit.submit');
+    });
 });
