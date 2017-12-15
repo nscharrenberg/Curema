@@ -44,4 +44,8 @@ class Client extends Model
     public function contact_moments() {
         return $this->hasMany('App\ClientContact', 'client_id');
     }
+
+    public function estimates() {
+        return $this->hasMany('App\Estimate', 'client_id');
+    }
 }

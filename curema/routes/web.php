@@ -32,8 +32,16 @@ Route::prefix('tickets')->group(function() {
     Route::post('/{id}', 'ClientTicketController@storeComment')->name('client.tickets.comment.create');
     Route::get('/{id}/edit', 'ClientTicketController@edit')->name('client.tickets.edit');
     Route::patch('/{id}/edit', 'ClientTicketController@update')->name('client.customer.contact.edit.submit');
-
 });
+
+Route::prefix('estimates')->group(function() {
+    Route::get('/', 'ClientEstimateController@index')->name('client.estimates.index');
+    Route::get('/{id}', 'ClientEstimateController@show')->name('client.estimates.show');
+    Route::patch('/{id}/accept', 'ClientEstimateController@accept')->name('client.estimates.accept');
+    Route::patch('/{id}/decline', 'ClientEstimateController@decline')->name('client.estimates.decline');
+    Route::post('/{id}', 'ClientEstimateController@storeComment')->name('client.estimates.comment.create');
+});
+
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

@@ -27,7 +27,7 @@ class ClientInvoiceController extends Controller
     public function index()
     {
         $invoices = Auth::user()->client->invoices;
-        return view('client.invoices', compact('invoices'));
+        return view('client.invoices.index', compact('invoices'));
     }
 
     /**
@@ -69,7 +69,7 @@ class ClientInvoiceController extends Controller
                 $payTypesArray[] = PaymentType::findOrFail($payType);
             }
 
-            return view('client.invoice.show', compact('invoice', 'payTypesArray'));
+            return view('client.invoices.show', compact('invoice', 'payTypesArray'));
         }
 
     }
