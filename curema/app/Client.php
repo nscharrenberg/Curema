@@ -48,4 +48,8 @@ class Client extends Model
     public function estimates() {
         return $this->hasMany('App\Estimate', 'client_id');
     }
+
+    public function contracts() {
+        return $this->hasMany('App\Contract', 'client_id');
+    }
 }

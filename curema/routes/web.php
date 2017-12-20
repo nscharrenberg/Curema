@@ -42,6 +42,14 @@ Route::prefix('estimates')->group(function() {
     Route::post('/{id}', 'ClientEstimateController@storeComment')->name('client.estimates.comment.create');
 });
 
+Route::prefix('contracts')->group(function() {
+    Route::get('/', 'ClientContractController@index')->name('client.contracts.index');
+    Route::get('/{id}', 'ClientContractController@show')->name('client.contracts.show');
+    Route::patch('/{id}/accept', 'ClientContractController@accept')->name('client.contracts.accept');
+    Route::patch('/{id}/decline', 'ClientContractController@decline')->name('client.contracts.decline');
+    Route::post('/{id}', 'ClientContractController@storeComment')->name('client.contracts.comment.create');
+});
+
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
