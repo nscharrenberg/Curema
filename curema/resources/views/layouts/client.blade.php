@@ -42,6 +42,8 @@
                 <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{route('client.invoices')}}">My Invoices</a></li>
+                        <li><a href="{{route('client.estimates.index')}}">My Estimates</a></li>
+                        <li><a href="{{route('client.contracts.index')}}">My Contracts</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                 Customer Service <span class="caret"></span>
