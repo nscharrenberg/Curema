@@ -37,4 +37,8 @@ class Ticket extends Model
     {
         return $this->hasMany('App\TicketComment', 'ticket_id');
     }
+
+    public static function rank(TicketPriority $prio) {
+        return Ticket::whereNotIn('status_id', [2])->where('priority_id', $prio->id)->where('agent_id', auth()->user()->id)->get();
+    }
 }

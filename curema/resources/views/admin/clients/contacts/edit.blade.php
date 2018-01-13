@@ -55,7 +55,7 @@
                             @endif
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Add Contact', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Contact', ['class' => 'btn btn-primary']) !!}
                     </div>
                     {!! Form::close() !!}
                 </div>

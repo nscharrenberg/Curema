@@ -50,6 +50,11 @@ class AdminDepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $department = Department::create([
             'name' => $request->name,
             'color_code' => $request->color_code
@@ -57,7 +62,7 @@ class AdminDepartmentController extends Controller
 
         if($request->agents) {
             foreach ($request->agents as $agent) {
-                if ($agent != null) {
+                if ($agent != null && $agent != 0) {
                     AdminDepartment::create([
                         'department_id' => $department->id,
                         'admin_id' => $agent->id
@@ -92,6 +97,11 @@ class AdminDepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $department = Department::findOrFail($id);
         $department->name = $request->name;
         $department->color_code = $request->color_code;

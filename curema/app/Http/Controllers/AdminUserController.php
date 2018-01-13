@@ -115,6 +115,27 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, $clientid, $id)
     {
+        if ($request->password) {
+            $validatedData = $request->validate([
+                'client_id' => 'required',
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required',
+                'password' => 'min:6',
+                'phonenumber' => 'required',
+                'default_language' => 'required',
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                'client_id' => 'required',
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required',
+                'phonenumber' => 'required',
+                'default_language' => 'required',
+            ]);
+        }
+
         $client = Client::findOrFail($clientid);
         $contact = User::findOrFail($id);
 

@@ -15,18 +15,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.estimates.create')}}" class="btn btn-primary"> Create new Estimate</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Estimates
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-calculator"></i> Estimates
+                        <a href="{{route('admin.estimates.create')}}" class="btn btn-primary pull-right"> Create new Estimate</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($estimates) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Estimate #</th>
                             <th>Amount</th>
@@ -39,7 +37,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($estimates)
+
                             @foreach($estimates as $estimate)
                                 <tr>
                                     <td>{{$estimate->prefix}}{{$estimate->number}}</td>
@@ -50,14 +48,18 @@
                                     <td>{{$estimate->client->company}}</td>
                                     <td>{{$estimate->status}}</td>
                                     <td>
-                                        <a href="{{route('admin.estimates.show', $estimate->id)}}" class="btn btn-info btn-xs">View Estimate</a>
-                                        <a href="{{route('admin.estimates.edit', $estimate->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.estimates.show', $estimate->id)}}" class="btn btn-info btn-sm">View Estimate</a>
+                                        <a href="{{route('admin.estimates.edit', $estimate->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>No Estimates found!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

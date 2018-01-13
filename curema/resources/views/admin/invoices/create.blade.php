@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -17,71 +15,76 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Clients</div>
-                    <br>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-file"></i> Add Invoice
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminInvoiceController@store']) !!}
-                    <div class=" col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('client_id', 'Customer:') !!}
-                            {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('number', 'Invoice Reference Nr') !!}
-                            {!! Form::number('number', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                {!! Form::label('date', 'Invoice Date:') !!}
-                                {!! Form::text('date', null, ['class' => 'form-control', 'id' => 'date']) !!}
-                            </div>
-                            <div class="col-md-6">
-                                {!! Form::label('deadline', 'Due Date:') !!}
-                                {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'deadline']) !!}
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('allowed_payment_types', 'Payment Method:') !!}
-                            {!! Form::select('allowed_payment_types[]', $types, null, ['class' => 'form-control selectpicker', 'multiple' => true]) !!}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                {!! Form::label('currency_id', 'Currency:') !!}
-                                {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control']) !!}
-                            </div>
-                            <div class="col-md-6">
-                                {!! Form::label('agent_id', 'Sales Agent:') !!}
-                                {!! Form::select('agent_id', $agents, null, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('recurring', 'Recurring Invoice?') !!}
-                            {!! Form::select('recurring', $recurring, null, ['class' => 'form-control selectpicker', 'id' => 'recurring']) !!}
-                        </div>
-                        <div id="recurringfields">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    {!! Form::number('repeat_every_custom', null, ['class' => 'form-control', 'id' => 'repeat_every_custom']) !!}
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <div class="form-group">
+                                    {!! Form::label('client_id', 'Customer:') !!}
+                                    {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                                 </div>
-                                <div class="col-md-6">
-                                    {!! Form::select('repeat_type_custom', $customTypes, null, ['class' => 'form-control selectpicker repeat_type_custom', 'id' => 'repeat_type_custom']) !!}
+                                <div class="form-group">
+                                    {!! Form::label('number', 'Invoice Reference Nr') !!}
+                                    {!! Form::number('number', null, ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        {!! Form::label('date', 'Invoice Date:') !!}
+                                        {!! Form::text('date', null, ['class' => 'form-control', 'id' => 'date']) !!}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {!! Form::label('deadline', 'Due Date:') !!}
+                                        {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'deadline']) !!}
+                                    </div>
                                 </div>
                             </div>
+                            <div class=" col-md-6">
+                                <div class="form-group">
+                                    {!! Form::label('allowed_payment_types', 'Payment Method:') !!}
+                                    {!! Form::select('allowed_payment_types[]', $types, null, ['class' => 'form-control select', 'multiple' => true, 'data-live-search' => 'true']) !!}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {!! Form::label('currency_id', 'Currency:') !!}
+                                        {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {!! Form::label('agent_id', 'Sales Agent:') !!}
+                                        {!! Form::select('agent_id', $agents, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('recurring', 'Recurring Invoice?') !!}
+                                    {!! Form::select('recurring', $recurring, null, ['class' => 'form-control select', 'id' => 'recurring', 'data-live-search' => 'true']) !!}
+                                </div>
+                                <div id="recurringfields">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            {!! Form::number('repeat_every_custom', null, ['class' => 'form-control', 'id' => 'repeat_every_custom']) !!}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {!! Form::select('repeat_type_custom', $customTypes, null, ['class' => 'form-control select repeat_type_custom', 'id' => 'repeat_type_custom', 'data-live-search' => 'true']) !!}
+                                        </div>
+                                    </div>
 
-                        </div>
-                        <div id="recurringdeadlinefield">
-                            <div class="form-group">
-                                {!! Form::label('recurring_ends_on', 'Recurring Ends on? (Leave blank if forever') !!}
-                                {!! Form::text('recurring_ends_on', null, ['class' => 'form-control', 'id' => 'recurring_ends_on']) !!}
+                                </div>
+                                <div id="recurringdeadlinefield">
+                                    <div class="form-group">
+                                        {!! Form::label('recurring_ends_on', 'Recurring Ends on? (Leave blank if forever') !!}
+                                        {!! Form::text('recurring_ends_on', null, ['class' => 'form-control', 'id' => 'recurring_ends_on']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('admin_note', 'Admin Notes') !!}
+                                    {!! Form::textarea('admin_note', null, ['class' => 'form-control', 'rows' => 3]) !!}
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            {!! Form::label('admin_note', 'Admin Notes') !!}
-                            {!! Form::textarea('admin_note', null, ['class' => 'form-control', 'rows' => 3]) !!}
-                        </div>
-                    </div>
+
 
                     <div class="col-md-12">
                         <div class="form-group pull-right">
@@ -132,7 +135,7 @@
                                         {!! Form::number('rate[]', null, ['class' => 'form-control', 'id' => 'rate']) !!}
                                     </td>
                                     <td>
-                                        {!! Form::select('tax[]', $taxes, null, ['class' => 'form-control selectpicker', 'multiple' => false, 'id' => 'tax']) !!}
+                                        {!! Form::select('tax[]', $taxes, null, ['class' => 'form-control select', 'multiple' => false, 'id' => 'tax']) !!}
                                     </td>
                                     <td></td>
                                     <td><button id="add-invoice" type="button" class="btn pull-right btn-info"><i class="fa fa-check"></i></button></td>
@@ -158,7 +161,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('discount_type', 'Discount Type:') !!}
-                            {!! Form::select('discount_type', $discountType, null, ['class' => 'form-control selectpicker']) !!}
+                            {!! Form::select('discount_type', $discountType, null, ['class' => 'form-control select']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('total', 'Total:') !!}
@@ -195,11 +198,9 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/moment-locales.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     {{-- Get DateTimePicker from Bootstrap --}}
     <script type="text/javascript">

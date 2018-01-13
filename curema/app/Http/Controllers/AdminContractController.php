@@ -55,6 +55,20 @@ class AdminContractController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'type_id' => 'required',
+            'subject' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+            'client_id' => 'required',
+            'start_date' => 'date_format:"Y/m/d"|required',
+            'end_date' => 'date_format:"Y/m/d"|required',
+            'sales_agent' => 'required',
+            'value' => 'numeric|required',
+            'currency_id' => 'required'
+        ]);
+
         $contract = Contract::create([
             'type_id' => $request->type_id,
             'subject' => $request->subject,
@@ -97,6 +111,18 @@ class AdminContractController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'type_id' => 'required',
+            'subject' => 'required',
+            'description' => 'required',
+            'content_body' => 'required',
+            'client_id' => 'required',
+            'start_date' => 'date_format:"Y/m/d"|required',
+            'end_date' => 'date_format:"Y/m/d"|required',
+            'value' => 'numeric|required',
+            'currency_id' => 'required'
+        ]);
+
         $contract = Contract::findOrFail($id);
         $contract->update([
             'type_id' => $request->type_id,

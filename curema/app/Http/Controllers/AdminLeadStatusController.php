@@ -50,6 +50,12 @@ class AdminLeadStatusController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required',
+            'order' => 'required|numeric'
+        ]);
+
         $input = $request->all();
         $status = LeadStatus::create($input);
         Session::flash('created_leadStatus', 'The Lead Status ' . $status->name . ' has been created');
@@ -88,6 +94,12 @@ class AdminLeadStatusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required',
+            'order' => 'required|numeric'
+        ]);
+
         $status = LeadStatus::findOrFail($id);
         $status->name = $request->name;
         $status->color_code = $request->color_code;

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -17,15 +15,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Clients</div>
-                    <br>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-file-text-o "></i> Add Contract
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminContractController@store']) !!}
                     <div class="row">
                         <div class=" col-md-6">
                             <div class="form-group">
                                 {!! Form::label('client_id', 'Customer:') !!}
-                                {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, null, ['class' => 'form-control selectpicker']) !!}
+                                {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('subject', 'Subject:') !!}
@@ -33,13 +33,13 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('type_id', 'Contract Type:') !!}
-                                {!! Form::select('type_id', $types, null, ['class' => 'form-control selectpicker']) !!}
+                                {!! Form::select('type_id', $types, null, ['class' => 'form-control select' , 'data-live-search' => 'true']) !!}
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
                                         {!! Form::label('currency_id', 'Currency:') !!}
-                                        {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control selectpicker']) !!}
+                                        {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                                     </div>
                                     <div class="col-md-8">
                                         {!! Form::label('value', 'Value:') !!}
@@ -71,11 +71,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
-                                {!! Form::hidden('showToClient', 0) !!}
-                                {!! Form::checkbox('showToClient','1', null, ['class' => 'form-check-input']) !!}
-                                {!! Form::label('showToClient', 'Show To Client:') !!}
-                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <br>
@@ -85,17 +81,16 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/moment-locales.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     {{-- Get DateTimePicker from Bootstrap --}}
     <script type="text/javascript">

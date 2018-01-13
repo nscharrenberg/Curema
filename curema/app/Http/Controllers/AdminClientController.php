@@ -93,7 +93,7 @@ class AdminClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientCreateRequest $request, $id)
     {
        $input = $request->all();
        $client = Client::findOrFail($id);

@@ -4,19 +4,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Expenses for {{$category->name}}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-credit-card"></i> Expenses for {{$category->name}}
                     </div>
+                    <div class="card-body card-fullwidth">
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Amount</th>
                             <th>Category</th>
                             <th>Customer</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,7 @@
                         @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

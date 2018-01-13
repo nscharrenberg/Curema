@@ -1,8 +1,4 @@
 @extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-@endsection
 @section('content')
     @if(count($errors) > 0)
         <div class="alert alert-danger">
@@ -16,8 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Edit Employee</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-secret"></i> Update Employee
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminEmployeeController@update', $employee->id]]) !!}
                     <div class="form-group">
                         <div class="row">
@@ -57,7 +56,7 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('default_language', 'Language:') !!}
-                        {!! Form::select('default_language',$languages, $employee->default_language, ['class' => 'form-control selectpicker']) !!}
+                        {!! Form::select('default_language',$languages, $employee->default_language, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('hourly_rate', 'Hourly Rate:') !!}
@@ -71,40 +70,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {!! Form::label('agent', 'Support Agent:') !!}
-                                {!! Form::select('agent', ['1' => 'Yes', '0' => 'No'], $employee->agent, ['class' => 'form-control selectpicker']) !!}
+                                {!! Form::select('agent', ['1' => 'Yes', '0' => 'No'], $employee->agent, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('departments[]', 'Agents:') !!}
-                                {!! Form::select('departments[]',$departments, $employeeDepartments, ['class' => 'form-control selectpicker', 'multiple' => true]) !!}
+                                {!! Form::select('departments[]',$departments, $employeeDepartments, ['class' => 'form-control select', 'multiple' => true, 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                {!! Form::label('active', 'Activated:') !!}
+                        <div class="form-group">
+                            <div class="form-check">
                                 {!! Form::hidden('active', 0) !!}
-                                {!! Form::checkbox('active','1', $employee->active, ['class' => 'form-check-input']) !!}
+                                {!! Form::checkbox('active','1', true, ['class' => 'form-check-input', 'id' => 'active']) !!}
+                                {!! Form::label('active', 'Activated', ['class' => 'form-check-label', 'for' => 'active']) !!}
                             </div>
-                            <div class="col-md-2">
-                                {!! Form::label('admin', 'Is Admin:') !!}
+                            <div class="form-check">
                                 {!! Form::hidden('admin', 0) !!}
-                                {!! Form::checkbox('admin','1', $employee->admin, ['class' => 'form-check-input']) !!}
+                                {!! Form::checkbox('admin','1', false, ['class' => 'form-check-input', 'id' => 'admin']) !!}
+                                {!! Form::label('admin', 'Is Admin', ['class' => 'form-check-label', 'for' => 'admin']) !!}
                             </div>
                         </div>
-                    </div>
 
                     <div class="form-group">
-                        {!! Form::submit('Update Tax', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Employee', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 @endsection

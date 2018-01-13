@@ -48,6 +48,12 @@ class AdminAnnouncementController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'subject' => 'required',
+            'content_body' => 'required',
+        ]);
+
         $announcement = Announcement::create([
             'subject' => $request->subject,
             'content' => $request->content_body,
@@ -94,6 +100,11 @@ class AdminAnnouncementController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'subject' => 'required',
+            'content_body' => 'required',
+        ]);
+
         $announcement = Announcement::findOrFail($id);
         $announcement->subject = $request->subject;
         $announcement->content = $request->content_body;

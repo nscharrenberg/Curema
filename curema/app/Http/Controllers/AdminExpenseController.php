@@ -54,6 +54,16 @@ class AdminExpenseController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'note' => 'required',
+            'number' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'tax_percentage' => 'required|numeric',
+            'client_id' => 'required',
+            'date' => 'date_format:"Y/m/d"|required',
+        ]);
         $expense = Expense::create([
             'category_id' => $request->category_id,
             'name' => $request->name,
@@ -91,6 +101,8 @@ class AdminExpenseController extends Controller
      */
     public function edit($id)
     {
+
+
         $expense = Expense::findOrFail($id);
         $clients = Client::pluck('company', 'id')->prepend('Select A Client', '')->all();
         $currencies = Currency::pluck('name', 'id')->prepend('Select A Currency', '')->all();
@@ -107,6 +119,17 @@ class AdminExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'note' => 'required',
+            'number' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'tax_percentage' => 'required|numeric',
+            'client_id' => 'required',
+            'date' => 'date_format:"Y/m/d"|required',
+        ]);
+
         $expense = Expense::findOrFail($id);
         $expense->update([
             'category_id' => $request->category_id,

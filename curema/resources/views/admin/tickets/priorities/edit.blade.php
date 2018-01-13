@@ -15,8 +15,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Ticket Priority</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-ticket"></i> Add Ticket Priority
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminTicketPriorityController@update', $priority->id]]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -27,10 +30,11 @@
                         {!! Form::text('color_code', $priority->color_code, ['class' => 'form-control', 'id' => 'color_code', 'value' => '#FFFFF', 'data-color-format' => 'hex']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Update Priority', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Ticket Priority', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

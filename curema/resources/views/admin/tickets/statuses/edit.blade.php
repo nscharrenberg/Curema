@@ -15,8 +15,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Ticket Status</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-ticket"></i> Update Ticket Status
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminTicketStatusController@update', $status->id]]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -27,10 +30,11 @@
                         {!! Form::text('color_code', $status->color_code, ['class' => 'form-control', 'id' => 'color_code', 'value' => '#FFFFF', 'data-color-format' => 'hex']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Update Status', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Ticket Status', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

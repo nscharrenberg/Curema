@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -17,28 +15,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Lead Status</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-o"></i> Add Lead
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminLeadController@store']) !!}
                     {!! Form::hidden('added_by',  Auth::user()->id) !!}
-                    {{Auth::user()->id}}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('status_id', 'Status:') !!}
-                                {!! Form::select('status_id', [0 => 'Select a Status'] + $status, null, ['class' => 'form-control']) !!}
+                                {!! Form::select('status_id', [0 => 'Select a Status'] + $status, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('source_id', 'Source:') !!}
-                                {!! Form::select('source_id', [0 => 'Select a Source'] + $sources, null, ['class' => 'form-control']) !!}
+                                {!! Form::select('source_id', [0 => 'Select a Source'] + $sources, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('assigned_to', 'Assigned To:') !!}
-                                {!! Form::select('assigned_to', $admins, null, ['class' => 'form-control']) !!}
+                                {!! Form::select('assigned_to', $admins, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('country_id', 'Country:') !!}
-                                {!! Form::select('country_id', $countries, null, ['class' => 'form-control']) !!}
+                                {!! Form::select('country_id', $countries, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('default_language', 'Default Language:') !!}
-                                {!! Form::select('default_language', $languages, null, ['class' => 'form-control']) !!}
+                                {!! Form::select('default_language', $languages, null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-check">
                                 {!! Form::hidden('contacted_today', 0) !!}
                                 {!! Form::checkbox('contacted_today','1', true, ['class' => 'form-check-input']) !!}
                                 {!! Form::label('contacted_today', 'Contacted Today?') !!}
@@ -149,16 +149,15 @@
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/moment-locales.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
     @endsection
 

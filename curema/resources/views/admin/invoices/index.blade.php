@@ -15,18 +15,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.invoice.create')}}" class="btn btn-primary"> Create new Invoice</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Invoices
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-file"></i> Invoices
+                        <a href="{{route('admin.invoice.create')}}" class="btn btn-primary pull-right"> Create new Invoice</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($invoices) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Invoice #</th>
                             <th>Amount</th>
@@ -39,7 +37,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($invoices)
+
                             @foreach($invoices as $invoice)
                                 <tr>
                                     <td>{{$invoice->prefix}}{{$invoice->number}}</td>
@@ -50,14 +48,17 @@
                                     <td>{{$invoice->client->company}}</td>
                                     <td>{{$invoice->status}}</td>
                                     <td>
-                                        <a href="{{route('admin.invoice.show', $invoice->id)}}" class="btn btn-info btn-xs">View Invoice</a>
-                                        <a href="{{route('admin.invoice.edit', $invoice->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.invoice.show', $invoice->id)}}" class="btn btn-info btn-sm">View Invoice</a>
+                                        <a href="{{route('admin.invoice.edit', $invoice->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find Invoices!</h3>
+                    @endif
                 </div>
             </div>
         </div>

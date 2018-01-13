@@ -13,18 +13,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Types</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-commenting-o"></i> Update Contact Type
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminClientContactTypeController@update', $type->id]]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
                         {!! Form::text('name', $type->name, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Update Type', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Contact Type', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

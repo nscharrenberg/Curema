@@ -21,39 +21,42 @@
 
     <div class="container">
         <div class="row">
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.contacts.types.create')}}" class="btn btn-primary"> New Types</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Types
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-commenting-o"></i> Contact Types
+                        <a href="{{route('admin.contacts.types.create')}}" class="btn btn-primary pull-right"> Create new Contact Type</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($types) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Name</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if($types)
+
                             @foreach($types as $type)
                                 <tr>
                                     <td>{{$type->name}}</td>
                                     <td>
-                                        <a href="{{route('admin.contacts.types.edit', $type->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.contacts.types.edit', $type->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         {!! Form::model($type, ['method' => 'DELETE', 'action' => ['AdminClientContactTypeController@destroy', $type->id]]) !!}
                                         {!! Form::hidden('', $type->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>We could not find any Contactmoment types!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

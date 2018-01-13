@@ -22,6 +22,7 @@
                     <div class="panel-heading">
                         My Invoices
                     </div>
+                    @if(count($invoices) > 0)
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -34,7 +35,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($invoices)
+
                             @foreach($invoices as $invoice)
                                 <tr>
                                     <td>{{$invoice->prefix}}{{$invoice->number}}</td>
@@ -47,9 +48,12 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>There are no invoices for you yet!</h3>
+                    @endif
                 </div>
             </div>
         </div>

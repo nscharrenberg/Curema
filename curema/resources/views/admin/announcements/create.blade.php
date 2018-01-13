@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Update Tax', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Add Announcement', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}

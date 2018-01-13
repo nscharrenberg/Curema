@@ -21,19 +21,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.tickets.statuses.create')}}" class="btn btn-primary"> New Status</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Ticket Status
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-ticket"></i> Ticket Statuses
+                        <a href="{{route('admin.tickets.statuses.create')}}" class="btn btn-primary pull-right"> Create new Ticket Status</a>
                     </div>
+                    <div class="card-body card-fullwidth">
                     @if(count($statuses) > 0)
                         <table class="table table-hover">
-                            <thead>
+                            <thead class="thead-primary">
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
@@ -47,10 +44,10 @@
                                     <td>{{$status->id}}</td>
                                     <td style="color: {{$status->color_code}}">{{$status->name}}</td>
                                     <td>
-                                        <a href="{{route('admin.tickets.statuses.edit', $status->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.tickets.statuses.edit', $status->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         {!! Form::model($status, ['method' => 'DELETE', 'action' => ['AdminTicketStatusController@destroy', $status->id]]) !!}
                                         {!! Form::hidden('', $status->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
@@ -61,6 +58,7 @@
                     @else
                         <h3>No Ticket Priorities have been found!</h3>
                     @endif
+                    </div>
                 </div>
             </div>
         </div>

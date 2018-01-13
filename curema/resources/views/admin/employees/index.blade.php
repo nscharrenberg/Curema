@@ -1,9 +1,4 @@
 @extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
-@endsection
 @section('content')
     @if(Session::has('created_employee'))
         <div class="alert alert-success">
@@ -39,21 +34,18 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.employee.create')}}" class="btn btn-primary"> New Employee</a></div>
-            </div>
-
             <!-- Admin Overview -->
             <div class="col-md-12">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Admins
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-secret"></i> Administrators
+                        <a href="{{route('admin.employee.create')}}" class="btn btn-primary pull-right"> Create new Employee</a>
                     </div>
+                    <div class="card-body card-fullwidth">
                     @if(count($admins) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Worker ID</th>
                             <th>Name</th>
@@ -69,17 +61,17 @@
                                     <td>{{$admin->fullname}}</td>
                                     <td>{{$admin->email}}</td>
                                     @if($admin->departments != null)
-                                        <td>{!! Form::select('departments', $admin->departments->pluck('name', 'id'), null, ['class' => 'form-control selectpicker']) !!}</td>
+                                        <td>{!! Form::select('departments', $admin->departments->pluck('name', 'id'), null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}</td>
                                     @else
                                         <td>None</td>
                                     @endif
 
                                     <td>
-                                        <a href="{{route('admin.employee.edit', $admin->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.employee.edit', $admin->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         @if(!$admin->active || !$admin->admin)
                                             {!! Form::model($admin, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $admin->id]]) !!}
                                             {!! Form::hidden('', $admin->id) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                             {!! Form::close() !!}
                                             @endif
                                     </td>
@@ -91,20 +83,20 @@
                     @else
                         <h3>No Administrators could be found!</h3>
                     @endif
-
+                    </div>
                 </div>
             </div>
 
             <!-- Agents Overview -->
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Support Agents
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-secret"></i> Support Agent
                     </div>
+                    <div class="card-body card-fullwidth">
                     @if(count($agents) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Worker ID</th>
                             <th>Name</th>
@@ -120,17 +112,17 @@
                                     <td>{{$agent->fullname}}</td>
                                     <td>{{$agent->email}}</td>
                                     @if($agent->departments != null)
-                                        <td>{!! Form::select('departments', $agent->departments->pluck('name', 'id'), null, ['class' => 'form-control selectpicker']) !!}</td>
+                                        <td>{!! Form::select('departments', $agent->departments->pluck('name', 'id'), null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}</td>
                                     @else
                                         <td>None</td>
                                     @endif
 
                                     <td>
-                                        <a href="{{route('admin.employee.edit', $agent->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.employee.edit', $agent->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         @if(!$agent->active || !$agent->admin)
                                             {!! Form::model($agent, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $agent->id]]) !!}
                                             {!! Form::hidden('', $agent->id) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                             {!! Form::close() !!}
                                         @endif
                                     </td>
@@ -142,20 +134,20 @@
                     @else
                         <h3>No Support Agents could be found!</h3>
                     @endif
-
+                    </div>
                 </div>
             </div>
 
             <!-- Employees Overview -->
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Regular Employees
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-secret"></i> Regular Employee
                     </div>
+                    <div class="card-body card-fullwidth">
                     @if(count($employees) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Worker ID</th>
                             <th>Name</th>
@@ -171,17 +163,17 @@
                                     <td>{{$employee->fullname}}</td>
                                     <td>{{$employee->email}}</td>
                                     @if($employee->departments != null)
-                                        <td>{!! Form::select('departments', $employee->departments->pluck('name', 'id'), null, ['class' => 'form-control selectpicker']) !!}</td>
+                                        <td>{!! Form::select('departments', $employee->departments->pluck('name', 'id'), null, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}</td>
                                     @else
                                         <td>None</td>
                                     @endif
 
                                     <td>
-                                        <a href="{{route('admin.employee.edit', $employee->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.employee.edit', $employee->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         @if(!$admin->active || !$admin->admin)
                                             {!! Form::model($employee, ['method' => 'DELETE', 'action' => ['AdminEmployeeController@destroy', $employee->id]]) !!}
                                             {!! Form::hidden('', $employee->id) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                             {!! Form::close() !!}
                                         @endif
                                     </td>
@@ -193,12 +185,9 @@
                     @else
                         <h3>No Regular Employees could be found!</h3>
                     @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 @endsection

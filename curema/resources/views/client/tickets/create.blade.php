@@ -1,6 +1,5 @@
 @extends('layouts.client')
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
@@ -50,6 +49,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 @endsection

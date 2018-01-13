@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -18,13 +16,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Contact Moment with <strong>{{$client->company}}</strong></div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-commenting-o"></i> Update Contactmoment of {{$client->company}}
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminClientContactController@update', $client->id, $contactMoment->id]]) !!}
                     {!! Form::hidden('client_id', $client->id) !!}
                     <div class="form-group">
                         {!! Form::label('contact_id', 'Contact Person:') !!}
-                        {!! Form::select('contact_id', $contacts, $contactMoment->contact_id, ['class' => 'form-control selectpicker']) !!}
+                        {!! Form::select('contact_id', $contacts, $contactMoment->contact_id, ['class' => 'select']) !!}
                     </div>
                     <div class="row">
                         <div class="col-md-5">
@@ -45,7 +46,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             {!! Form::label('type_id', 'Contact Type:') !!}
-                            {!! Form::select('type_id', $types,$contactMoment->type_id, ['class' => 'form-control', 'id' => 'date']) !!}
+                            {!! Form::select('type_id', $types,$contactMoment->type_id, ['class' => 'select', 'id' => 'date']) !!}
                         </div>
                     </div>
                     <div class="form-group">
@@ -56,23 +57,22 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {!! Form::submit('Add Contact Moment to ' . $client->company, ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Update Contact Moment of ' . $client->company, ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/moment-locales.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     {{-- Get DateTimePicker from Bootstrap --}}
     <script type="text/javascript">
@@ -95,6 +95,28 @@
             $("#end_time").on("dp.change", function(e) {
                 $('#start_time').data("DateTimePicker").maxDate(e.date);
             });
+        });
+    </script>
+    <script>
+        $('select').extendSelect({
+            // Search input placeholder:
+            search: 'Find',
+            // Title if option not selected:
+            notSelectedTitle: 'Select an option',
+            // Message if select list empty:
+            empty: 'Empty',
+            // Class to active element
+            activeClass: 'active',
+            // Class to disabled element
+            disabledClass: 'disabled',
+            // Custom error message for all selects (use placeholder %items)
+            maxOptionMessage: 'Max %items elements',
+            // Delay to hide message
+            maxOptionMessageDelay: 2000,
+            // Popover logic (resize or save height)
+            popoverResize: true,
+            // Auto resize dropdown by button width
+            dropdownResize: true
         });
     </script>
 @endsection

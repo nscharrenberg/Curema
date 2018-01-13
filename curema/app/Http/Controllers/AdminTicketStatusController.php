@@ -47,6 +47,11 @@ class AdminTicketStatusController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $input = $request->all();
         $status = TicketStatus::create($input);
         Session::flash('created_ticket_status', 'The Ticket Status ' . $status->name  . ' has been created');
@@ -74,6 +79,11 @@ class AdminTicketStatusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $input = $request->all();
         $status = TicketStatus::findOrFail($id);
         $status->update($input);

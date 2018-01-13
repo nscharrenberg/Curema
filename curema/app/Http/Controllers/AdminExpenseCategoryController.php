@@ -85,12 +85,12 @@ class AdminExpenseCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExpenseCategoryRequest $request, $id)
     {
         $input = $request->all();
         $category = ExpenseCategory::findOrFail($id);
         $category->update($input);
-        Session::flash('updated_expense_category', 'The Tax ' . $category->name  . ' has been updated');
+        Session::flash('updated_expense_category', 'The Expense Category ' . $category->name  . ' has been updated');
         return redirect('/admin/expenses/categories');
     }
 

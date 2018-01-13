@@ -12,6 +12,7 @@ use App\InvoiceItemTax;
 use App\PaymentType;
 use App\Tax;
 use Carbon\Carbon;
+use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -35,7 +36,11 @@ class AdminInvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::all();
+        try {
+            $invoices = Invoice::all();
+        } catch(Exception $e) {
+            report($e);
+        }
         return view('admin.invoices.index', compact('invoices'));
     }
 
@@ -67,55 +72,55 @@ class AdminInvoiceController extends Controller
      */
     public function store(InvoiceCreateRequest $request)
     {
-        if($request->recurring == 13) {
-            $invoice = Invoice::create([
-                // Gives Unexpected data found exception for some weird reason.
-                'client_id' => $request->client_id,
-                'number' => $request->number,
-                'prefix' => 'INV-',
-                'date' => Carbon::createFromFormat("Y/m/d", $request->date),
-                'deadline' => Carbon::createFromFormat("Y/m/d", $request->deadline),
-                'allowed_payment_types' => serialize($request->allowed_payment_types),
-                'currency_id' => $request->currency_id,
-                'sales_agent' => $request->agent_id,
-                'recurring' => $request->repeat_every_custom,
-                'custom_recurring' => true,
-                'recurring_type' => $request->repeat_type_custom,
-                'recurring_deadline' => Carbon::createFromFormat("Y/m/d", $request->recurring_ends_on),
-                'admin_note' => $request->admin_note,
-                'show_quantity_as' => $request->show_quantity_as,
-                'subtotal' => $request->subtotal,
-                'discount_percentage' => $request->discount_percentage,
-                'adjustment' => $request->adjustment,
-                'discount_type' => $request->discount_type,
-                'total' => $request->total,
-                'client_note' => $request->client_note,
-                'terms' => $request->terms,
-                'cancel_overdue_reminder' => $request->cancel_overdue_reminder
-            ]);
-        } else {
-            $invoice = Invoice::create([
-                'client_id' => $request->client_id,
-                'number' => $request->number,
-                'prefix' => 'INV-',
-                'date' => Carbon::createFromFormat("Y/m/d", $request->date),
-                'deadline' => Carbon::createFromFormat("Y/m/d", $request->deadline),
-                'allowed_payment_types' => serialize($request->allowed_payment_types),
-                'currency_id' => $request->currency_id,
-                'sales_agent' => $request->agent_id,
-                'recurring' => $request->recurring,
-                'admin_note' => $request->admin_note,
-                'show_quantity_as' => $request->show_quantity_as,
-                'subtotal' => $request->subtotal,
-                'discount_percentage' => $request->discount_percentage,
-                'adjustment' => $request->adjustment,
-                'discount_type' => $request->discount_type,
-                'total' => $request->total,
-                'client_note' => $request->client_note,
-                'terms' => $request->terms,
-                'cancel_overdue_reminder' => $request->cancel_overdue_reminder
-            ]);
-        }
+            if ($request->recurring == 13) {
+                $invoice = Invoice::create([
+                    // Gives Unexpected data found exception for some weird reason.
+                    'client_id' => $request->client_id,
+                    'number' => $request->number,
+                    'prefix' => 'INV-',
+                    'date' => Carbon::createFromFormat("Y/m/d", $request->date),
+                    'deadline' => Carbon::createFromFormat("Y/m/d", $request->deadline),
+                    'allowed_payment_types' => serialize($request->allowed_payment_types),
+                    'currency_id' => $request->currency_id,
+                    'sales_agent' => $request->agent_id,
+                    'recurring' => $request->repeat_every_custom,
+                    'custom_recurring' => true,
+                    'recurring_type' => $request->repeat_type_custom,
+                    'recurring_deadline' => Carbon::createFromFormat("Y/m/d", $request->recurring_ends_on),
+                    'admin_note' => $request->admin_note,
+                    'show_quantity_as' => $request->show_quantity_as,
+                    'subtotal' => $request->subtotal,
+                    'discount_percentage' => $request->discount_percentage,
+                    'adjustment' => $request->adjustment,
+                    'discount_type' => $request->discount_type,
+                    'total' => $request->total,
+                    'client_note' => $request->client_note,
+                    'terms' => $request->terms,
+                    'cancel_overdue_reminder' => $request->cancel_overdue_reminder
+                ]);
+            } else {
+                $invoice = Invoice::create([
+                    'client_id' => $request->client_id,
+                    'number' => $request->number,
+                    'prefix' => 'INV-',
+                    'date' => Carbon::createFromFormat("Y/m/d", $request->date),
+                    'deadline' => Carbon::createFromFormat("Y/m/d", $request->deadline),
+                    'allowed_payment_types' => serialize($request->allowed_payment_types),
+                    'currency_id' => $request->currency_id,
+                    'sales_agent' => $request->agent_id,
+                    'recurring' => $request->recurring,
+                    'admin_note' => $request->admin_note,
+                    'show_quantity_as' => $request->show_quantity_as,
+                    'subtotal' => $request->subtotal,
+                    'discount_percentage' => $request->discount_percentage,
+                    'adjustment' => $request->adjustment,
+                    'discount_type' => $request->discount_type,
+                    'total' => $request->total,
+                    'client_note' => $request->client_note,
+                    'terms' => $request->terms,
+                    'cancel_overdue_reminder' => $request->cancel_overdue_reminder
+                ]);
+            }
 
 
         foreach ($request->name as $key => $value) {
@@ -239,8 +244,6 @@ class AdminInvoiceController extends Controller
             $invoice->currency_id = $request->currency_id;
             $invoice->sales_Agent = $request->agent_id;
             $invoice->recurring = $request->recurring;
-            $invoice->custom_recurring = false;
-            $invoice->recurring_deadline = Carbon::createFromFormat("Y/m/d", $request->recurring_ends_on);
             $invoice->admin_note = $request->admin_note;
             $invoice->show_quantity_as = $request->show_quantity_as;
             $invoice->subtotal = $request->subtotal;

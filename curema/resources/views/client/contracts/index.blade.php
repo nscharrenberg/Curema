@@ -10,6 +10,7 @@
                     <div class="panel-heading">
                         My Estimates
                     </div>
+                    @if(count($contracts) > 0)
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -23,7 +24,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($contracts)
+
                             @foreach($contracts as $contract)
                                 <tr>
                                     <td>{{$contract->id}}</td>
@@ -38,9 +39,12 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>There are no contracts for you yet!</h3>
+                    @endif
                 </div>
             </div>
         </div>

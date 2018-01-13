@@ -3,13 +3,14 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="invoice-title">
-                    <h2>Invoice</h2><h3 class="pull-right">Order {{$invoice->prefix}} {{$invoice->number}}</h3>
-                </div>
-                <hr>
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-file"></i> Invoice # {{$invoice->prefix}} {{$invoice->number}}
+                    </div>
+                    <div class="card-body">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         <address>
                             <strong>Billed To:</strong><br>
                             @if($invoice->client->billing_address!= null && $invoice->client->billing_zipcode != null && $invoice->client->billing_state != null && $invoice->client->billing_city != null && $invoice->client->billing_country_id != null)
@@ -26,7 +27,7 @@
                             @endif
                         </address>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="col-md-6 text-right">
                         <address>
                             <strong>Shipped To:</strong><br>
                             @if($invoice->client->shipping_address!= null && $invoice->client->shipping_zipcode != null && $invoice->client->shipping_state != null && $invoice->client->shipping_city != null && $invoice->client->shipping_country_id != null)
@@ -46,7 +47,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         <address>
                             <strong>Allowed Payment Methods:</strong><br>
                             @if(is_array($payTypesArray))
@@ -56,7 +57,7 @@
                                 @endif
                         </address>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="col-md-6 text-right">
                         <address>
                             <strong>Order Date:</strong><br>
                             {{$invoice->date->toFormattedDateString()}}
@@ -70,78 +71,66 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><strong>Order summary</strong></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-condensed">
-                                <thead>
-                                <tr>
-                                    <td><strong>Item</strong></td>
-                                    <td><strong>Name</strong></td>
-                                    <td><strong>Description</strong></td>
-                                    <td class="text-center"><strong>Rate</strong></td>
-                                    <td class="text-center"><strong>Quantity</strong></td>
-                                    <td class="text-center"><strong>Tax</strong></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($invoice->items as $item)
-                                    <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>{{$item->name}}</td>
-                                        <td>{{$item->description}}</td>
-                                        <td class="text-center">{{$invoice->currency->symbol}}{{$item->rate}}</td>
-                                        <td class="text-center">{{$item->quantity}} {{$item->unit}}</td>
-                                        <td class="text-center">
-                                                    @foreach($item->tax as $tax)
-                                                        {{$tax->rate}}%
-                                                        @endforeach
-                                            </td>
-                                        <td class="text-right">{{$item->rate * $item->quantity}}</td>
-                                    </tr>
+                    <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    <table class="table table-condensed">
+                        <thead>
+                        <tr>
+                            <td><strong>Item</strong></td>
+                            <td><strong>Name</strong></td>
+                            <td><strong>Description</strong></td>
+                            <td class="text-center"><strong>Rate</strong></td>
+                            <td class="text-center"><strong>Quantity</strong></td>
+                            <td class="text-center"><strong>Tax</strong></td>
+                            <td class="text-right"><strong>Total</strong></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($invoice->items as $item)
+                            <tr>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->description}}</td>
+                                <td class="text-center">{{$invoice->currency->symbol}}{{$item->rate}}</td>
+                                <td class="text-center">{{$item->quantity}} {{$item->unit}}</td>
+                                <td class="text-center">
+                                    @foreach($item->tax as $tax)
+                                        {{$tax->rate}}%
                                     @endforeach
+                                </td>
+                                <td class="text-right">{{$item->rate * $item->quantity}}</td>
+                            </tr>
+                        @endforeach
 
-                                <tr>
-                                    <td class="thick-line"></td>
-                                    <td class="thick-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                                    <td class="thick-line text-right">{{$invoice->currency->symbol}}{{$invoice->subtotal}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="thick-line"></td>
-                                    <td class="thick-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="thick-line text-center"><strong>Adjustment</strong></td>
-                                    <td class="thick-line text-right">{{$invoice->currency->symbol}}{{$invoice->adjustment}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line text-center"><strong>Total</strong></td>
-                                    <td class="no-line text-right">{{$invoice->currency->symbol}}{{$invoice->total}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <tr>
+                            <td class="thick-line"></td>
+                            <td class="thick-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                            <td class="thick-line text-right">{{$invoice->currency->symbol}}{{$invoice->subtotal}}</td>
+                        </tr>
+                        <tr>
+                            <td class="thick-line"></td>
+                            <td class="thick-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="thick-line text-center"><strong>Adjustment</strong></td>
+                            <td class="thick-line text-right">{{$invoice->currency->symbol}}{{$invoice->adjustment}}</td>
+                        </tr>
+                        <tr>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line text-center"><strong>Total</strong></td>
+                            <td class="no-line text-right">{{$invoice->currency->symbol}}{{$invoice->total}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
         </div>
     </div>
     @endsection

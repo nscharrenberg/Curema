@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -17,46 +15,50 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Estimate</div>
-                    <br>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-calculator"></i> Update Estimate
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminEstimateController@update', $estimate->id]]) !!}
-                    <div class=" col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('client_id', 'Customer:') !!}
-                            {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, $estimate->client_id, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('number', 'Estimate Reference Nr') !!}
-                            {!! Form::number('number', $estimate->number, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-6">
-                                {!! Form::label('date', 'Estimate Date:') !!}
-                                {!! Form::text('date', $estimate->date->format("Y/m/d"), ['class' => 'form-control', 'id' => 'date']) !!}
+                                <div class="form-group">
+                                    {!! Form::label('client_id', 'Customer:') !!}
+                                    {!! Form::select('client_id', [0 => 'Select a Customer'] + $clients, $estimate->client_id, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('number', 'Estimate Reference Nr') !!}
+                                    {!! Form::number('number', $estimate->number, ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        {!! Form::label('date', 'Estimate Date:') !!}
+                                        {!! Form::text('date', $estimate->date->format("Y/m/d"), ['class' => 'form-control', 'id' => 'date']) !!}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {!! Form::label('deadline', 'Due Date:') !!}
+                                        {!! Form::text('deadline', $estimate->deadline->format("Y/m/d"), ['class' => 'form-control', 'id' => 'deadline']) !!}
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                {!! Form::label('deadline', 'Due Date:') !!}
-                                {!! Form::text('deadline', $estimate->deadline->format("Y/m/d"), ['class' => 'form-control', 'id' => 'deadline']) !!}
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        {!! Form::label('currency_id', 'Currency:') !!}
+                                        {!! Form::select('currency_id', $currencies, $estimate->currency_id, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {!! Form::label('agent_id', 'Sales Agent:') !!}
+                                        {!! Form::select('agent_id', $agents, $estimate->sales_agent, ['class' => 'form-control select', 'data-live-search' => 'true']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('admin_note', 'Admin Notes') !!}
+                                    {!! Form::textarea('admin_note', $estimate->admin_note, ['class' => 'form-control', 'rows' => 3]) !!}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class=" col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                {!! Form::label('currency_id', 'Currency:') !!}
-                                {!! Form::select('currency_id', $currencies, $estimate->currency_id, ['class' => 'form-control']) !!}
-                            </div>
-                            <div class="col-md-6">
-                                {!! Form::label('agent_id', 'Sales Agent:') !!}
-                                {!! Form::select('agent_id', $agents, $estimate->sales_agent, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('admin_note', 'Admin Notes') !!}
-                            {!! Form::textarea('admin_note', $estimate->admin_note, ['class' => 'form-control', 'rows' => 3]) !!}
-                        </div>
-                    </div>
 
                     <div class="col-md-12">
                         <div class="form-group pull-right">
@@ -135,7 +137,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('discount_type', 'Discount Type:') !!}
-                            {!! Form::select('discount_type', $discountType, $estimate->discount_type, ['class' => 'form-control selectpicker']) !!}
+                            {!! Form::select('discount_type', $discountType, $estimate->discount_type, ['class' => 'form-control select']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('total', 'Total:') !!}
@@ -160,18 +162,16 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <div class="mydiv"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/moment-locales.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     {{-- Get DateTimePicker from Bootstrap --}}
     <script type="text/javascript">

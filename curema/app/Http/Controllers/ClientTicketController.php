@@ -57,6 +57,13 @@ class ClientTicketController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'subject' => 'required',
+            'content_body' => 'required',
+            'priority_id' => 'required',
+            'category_id' => 'required',
+        ]);
+
         $ticket = Ticket::create([
            'subject' => $request->subject,
             'content' => $request->content_body,
@@ -81,7 +88,8 @@ class ClientTicketController extends Controller
         $comment = TicketComment::create([
             'user_id' => auth()->user()->id,
             'ticket_id' => $request->ticket_id,
-            'content' => $request->content_body
+            'content' => $request->content_body,
+            'isAdmin' => false
         ]);
 
         Session::flash('created_comment', 'Your comment has been placed.');
@@ -125,6 +133,13 @@ class ClientTicketController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'subject' => 'required',
+            'content_body' => 'required',
+            'priority_id' => 'required',
+            'category_id' => 'required',
+        ]);
+
         $ticket = Ticket::findorFail($id);
         $ticket->subject = $request->subject;
         $ticket->content = $request->content_body;

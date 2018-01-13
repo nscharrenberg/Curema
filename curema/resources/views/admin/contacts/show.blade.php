@@ -21,10 +21,12 @@
             </div>
             <div class="col-md-12">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Contact Moments
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-commenting-o"></i> Contact Types
+                        <a href="{{route('admin.contacts.types.create')}}" class="btn btn-primary pull-right"> Create new Contact Type</a>
                     </div>
+                    <div class="card-body card-fullwidth">
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -57,6 +59,7 @@
                         @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

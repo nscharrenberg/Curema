@@ -15,8 +15,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Lead Status</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-o"></i> Add Lead Status
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminLeadStatusController@store']) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -31,17 +34,18 @@
                         {!! Form::number('order', null, ['class' => 'form-control']) !!}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-check">
                         {!! Form::hidden('default', 0) !!}
                         {!! Form::checkbox('default','1', null, ['class' => 'form-check-input']) !!}
                         {!! Form::label('default', 'Default Status:') !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::submit('Create Lead Status', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Add Lead Status', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

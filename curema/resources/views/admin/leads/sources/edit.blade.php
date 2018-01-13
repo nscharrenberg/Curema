@@ -12,8 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Lead Source</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-o"></i> Update Lead Source
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminLeadSourceController@update', $source->id]]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -24,6 +27,7 @@
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

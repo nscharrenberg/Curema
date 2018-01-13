@@ -15,20 +15,18 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.contact.create', $client->id)}}" class="btn btn-primary"> Create new Contact Moment</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Contact Moments
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-commenting-o"></i> Contactmoments with {{$client->company}}
+                        <a href="{{route('admin.contact.create', $client->id)}}" class="btn btn-primary pull-right"> Create new Contact Moment</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($contacts) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
-                            <th>Contact #</th>
+                            <th>#</th>
                             <th>Client</th>
                             <th>Contact Person</th>
                             <th>Date</th>
@@ -41,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($contacts)
+
                             @foreach($contacts as $contact)
                                 <tr>
                                     <td>{{$contact->id}}</td>
@@ -54,13 +52,15 @@
                                     <td>{{$contact->type->name}}</td>
                                     <td>{{$contact->employee->FullName}}</td>
                                     <td>
-                                        <a href="{{route('admin.contact.edit', [$contact->client->id, $contact->id])}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.contact.edit', [$contact->client->id, $contact->id])}}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
                         </tbody>
                     </table>
+                        @else
+                        <h3>There has not yet been any contact with this customer.</h3>
+                    @endif
                 </div>
             </div>
         </div>

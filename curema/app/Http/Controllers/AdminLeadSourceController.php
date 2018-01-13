@@ -47,6 +47,10 @@ class AdminLeadSourceController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
         $input = $request->all();
         $source = LeadSource::create($input);
         Session::flash('created_leadSource', 'The Lead Source ' . $source->name . ' has been created');
@@ -85,6 +89,10 @@ class AdminLeadSourceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
         $source = LeadSource::findOrFail($id);
         $source->name = $request->name;
         $source->save();

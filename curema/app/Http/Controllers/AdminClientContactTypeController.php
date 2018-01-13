@@ -48,6 +48,10 @@ class AdminClientContactTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
         $input = $request->all();
         $type = ClientContactType::create($input);
         Session::flash('created_contactType', 'The Contact Type ' . $type->name . ' has been created');
@@ -86,6 +90,10 @@ class AdminClientContactTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
         $input = $request->all();
         $type = ClientContactType::findOrFail($id);
         $type->update($input);

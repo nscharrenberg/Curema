@@ -10,6 +10,7 @@
                     <div class="panel-heading">
                         My Estimates
                     </div>
+                    @if(count($estimates) > 0)
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -22,7 +23,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($estimates)
+
                             @foreach($estimates as $estimate)
                                 <tr>
                                     <td>{{$estimate->prefix}}{{$estimate->number}}</td>
@@ -35,9 +36,12 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>There are no estimates for you yet!</h3>
+                    @endif
                 </div>
             </div>
         </div>

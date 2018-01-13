@@ -27,53 +27,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.announcements.create')}}" class="btn btn-primary"> New Announcement</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Announcements
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-bullhorn"></i> Announcements
+                        <a href="{{route('admin.announcements.create')}}" class="btn btn-primary pull-right"> Create new Announcement</a>
                     </div>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Content</th>
-                            <th>Dismissed</th>
-                            <th>Posted by</th>
-                            <th>Posted on</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <div class="card-body card-fullwidth">
                         @if(count($announcements) > 0)
-                            @foreach($announcements as $announcement)
-                                <tr>
-                                    <td>{{$announcement->subject}}</td>
-                                    <td>{{$announcement->content}}</td>
-                                    <td>{{$announcement->dismissed ? "Yes" : "No"}}</td>
-                                    <td>{{$announcement->admin->fullName}}</td>
-                                    <td>{{$announcement->created_at->diffForHumans()}}</td>
-                                    <td>
-                                        <a href="{{route('admin.announcements.edit', $announcement->id)}}" class="btn btn-warning btn-xs">Edit</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
-
-                @if(auth()->user()->admin)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Announcements
-                        </div>
                         <table class="table table-hover">
-                            <thead>
+                            <thead class="thead-primary">
                             <tr>
                                 <th>Subject</th>
                                 <th>Content</th>
@@ -84,8 +47,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(count($dismissed) > 0)
-                                @foreach($dismissed as $announcement)
+
+                                @foreach($announcements as $announcement)
                                     <tr>
                                         <td>{{$announcement->subject}}</td>
                                         <td>{{$announcement->content}}</td>
@@ -93,18 +56,62 @@
                                         <td>{{$announcement->admin->fullName}}</td>
                                         <td>{{$announcement->created_at->diffForHumans()}}</td>
                                         <td>
-                                            <a href="{{route('admin.announcements.edit', $announcement->id)}}" class="btn btn-warning btn-xs">Edit</a>
-                                            {!! Form::model($announcement, ['method' => 'DELETE', 'action' => ['AdminAnnouncementController@destroy', $announcement->id]]) !!}
-                                            {!! Form::hidden('', $announcement->id) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                                            {!! Form::close() !!}
+                                            <a href="{{route('admin.announcements.edit', $announcement->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
+
                             </tbody>
                         </table>
+                            @else
+                            <h2>No Announcements</h2>
+                        @endif
                     </div>
+                </div>
+            </div>
+
+                @if(auth()->user()->admin)
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-bullhorn"></i> Dismissed Announcements
+                        </div>
+                        <div class="card-body card-fullwidth">
+                            <table class="table table-hover">
+                                <thead class="thead-primary">
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Content</th>
+                                    <th>Dismissed</th>
+                                    <th>Posted by</th>
+                                    <th>Posted on</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(count($dismissed) > 0)
+                                    @foreach($dismissed as $announcement)
+                                        <tr>
+                                            <td>{{$announcement->subject}}</td>
+                                            <td>{{$announcement->content}}</td>
+                                            <td>{{$announcement->dismissed ? "Yes" : "No"}}</td>
+                                            <td>{{$announcement->admin->fullName}}</td>
+                                            <td>{{$announcement->created_at->diffForHumans()}}</td>
+                                            <td>
+                                                <a href="{{route('admin.announcements.edit', $announcement->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                                                {!! Form::model($announcement, ['method' => 'DELETE', 'action' => ['AdminAnnouncementController@destroy', $announcement->id]]) !!}
+                                                {!! Form::hidden('', $announcement->id) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                                {!! Form::close() !!}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                     @endif
             </div>
         </div>

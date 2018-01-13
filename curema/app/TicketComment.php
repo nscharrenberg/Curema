@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketComment extends Model
 {
-    protected $fillable = ['content', 'user_id', 'ticket_id'];
+    protected $fillable = ['content', 'user_id', 'ticket_id', 'isAdmin'];
 
     public function ticket()
     {

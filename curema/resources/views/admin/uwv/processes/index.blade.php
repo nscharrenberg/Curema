@@ -21,18 +21,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.uwv.processes.create')}}" class="btn btn-primary"> New Contactperson</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        UWV Contacts
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-recycle"></i> UWV Processes
+                        <a href="{{route('admin.uwv.processes.create')}}" class="btn btn-primary pull-right"> Create new UWV Process</a>
                     </div>
-                    <table class="table table-hover">
-                        <thead>
+                    <div class="card-body card-fullwidth">
+                    @if(count($processes) > 0)
+                    <table class="table table-hover table-responsive">
+                        <thead class="thead-primary">
                         <tr>
                             <th>Ordernr</th>
                             <th>Client</th>
@@ -44,7 +42,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($processes)
                             @foreach($processes as $process)
                                 <tr>
                                     <td>{{$process->ordernr}}</td>
@@ -58,17 +55,21 @@
                                             @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{route('admin.uwv.processes.edit', $process->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.uwv.processes.edit', $process->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         {!! Form::model($process, ['method' => 'DELETE', 'action' => ['Addons\AdminUwvProcessController@destroy', $process->id]]) !!}
                                         {!! Form::hidden('', $process->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find any UWV Process!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

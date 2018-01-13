@@ -57,6 +57,16 @@ class AdminEmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'phonenumber' => 'required|numeric',
+            'default_language' => 'required',
+            'hourly_rate' => 'required|numeric',
+        ]);
+
         $employee = Admin::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -112,6 +122,27 @@ class AdminEmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->password) {
+            $validatedData = $request->validate([
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required',
+                'password' => 'min:6',
+                'phonenumber' => 'required|numeric',
+                'default_language' => 'required',
+                'hourly_rate' => 'required|numeric',
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required',
+                'phonenumber' => 'required|numeric',
+                'default_language' => 'required',
+                'hourly_rate' => 'required|numeric',
+            ]);
+        }
+
         $employee = Admin::findOrfail($id);
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;

@@ -9,3 +9,45 @@
     border: 0px !important;
     background: transparent;
 }
+
+.bottommargin-20 {
+    margin-bottom: 20px;
+}
+
+.thead-primary th {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.thead-danger th {
+    color: #fff;
+    background-color: #ff0000;
+}
+
+.bootstrap-select.btn-group .dropdown-menu.inner {
+    display: block;
+}
+
+.card-fullwidth {
+    padding: 0px;
+}
+
+.navbar-light-new a {
+    color: #fff;
+}
+
+.navbar-light-new a:hover {
+    color: #e1e1e1;
+}
+
+.navbar-light-new .dropdown-menu a {
+    color: #000;
+}
+
+.navbar-light-new .dropdown-menu a:hover {
+    color: #007bff;
+}
+
+.navbar-light-new .navbar-brand {
+    color: #fff;
+}

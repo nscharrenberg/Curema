@@ -3,11 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Admin Reset Password</div>
-
-                    <div class="panel-body">
+            <div class="col"></div>
+            <div class="col col-md-offset-2">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-sign-in"></i> Forgot Password
+                    </div>
+                    <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
@@ -18,9 +20,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                                <div class="col-md-6">
+                                <label for="email" class="control-label">E-Mail Address</label>
                                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
                                     @if ($errors->has('email'))
@@ -28,20 +28,18 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                     @endif
-                                </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="col-md-12 btn btn-primary">
                                         Send Password Reset Link
                                     </button>
-                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <div class="col"></div>
         </div>
     </div>
 @endsection

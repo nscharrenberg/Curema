@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Update Tax', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Update Announcement', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}

@@ -16,8 +16,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Expense Category</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-credit-card"></i> Add Expense Category
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminExpenseCategoryController@store']) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -31,6 +34,7 @@
                         {!! Form::submit('Create Expense Category', ['class' => 'btn btn-primary']) !!}
                     </div>
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,18 +15,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.payments.create')}}" class="btn btn-primary"> New Payment Method</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Clients
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-credit-card-alt"></i> Payment Methods
+                        <a href="{{route('admin.payments.create')}}" class="btn btn-primary pull-right"> Create new Department</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($types) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
@@ -38,7 +36,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($types)
+
                             @foreach($types as $type)
                                 <tr>
                                     <td>{{$type->id}}</td>
@@ -48,13 +46,17 @@
                                     <td>{{$type->default ? "Yes" : "No"}}</td>
                                     <td>{{$type->active ? "Yes" : "No"}}</td>
                                     <td>
-                                        <a href="{{route('admin.payments.edit', $type->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.payments.edit', $type->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find any Payment Methods!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

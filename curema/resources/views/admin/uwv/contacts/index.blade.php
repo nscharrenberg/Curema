@@ -21,18 +21,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.uwv.contacts.create')}}" class="btn btn-primary"> New Contactperson</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        UWV Contacts
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-md"></i> UWV Contact persons
+                        <a href="{{route('admin.uwv.contacts.create')}}" class="btn btn-primary pull-right"> Create new UWV Contact person</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($contacts) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
@@ -41,24 +39,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($contacts)
+
                             @foreach($contacts as $contact)
                                 <tr>
                                     <td>{{$contact->firstname}} {{$contact->lastname}}</td>
                                     <td>{{$contact->email}}</td>
                                     <td>{{$contact->phonenumber}}</td>
                                     <td>
-                                        <a href="{{route('admin.uwv.contacts.edit', $contact->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.uwv.contacts.edit', $contact->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         {!! Form::model($contact, ['method' => 'DELETE', 'action' => ['Addons\AdminUwvContactController@destroy', $contact->id]]) !!}
                                         {!! Form::hidden('', $contact->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find any UWV Contact!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

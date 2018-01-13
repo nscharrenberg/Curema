@@ -26,10 +26,15 @@ class AdminTicketCommentController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'content_body' => 'required',
+        ]);
+
         $comment = TicketComment::create([
             'user_id' => auth()->user()->id,
             'ticket_id' => $request->ticket_id,
-            'content' => $request->content_body
+            'content' => $request->content_body,
+            'isAdmin' => 1
         ]);
 
         Session::flash('created_comment', 'Your comment has been placed.');

@@ -3,72 +3,68 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="invoice-title">
-                    <h2>Estimate</h2><h3 class="pull-right">Estimate # {{$estimate->prefix}} {{$estimate->number}}</h3>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <address>
-                            <strong>Billed To:</strong><br>
-                            @if($estimate->client->billing_address!= null && $estimate->client->billing_zipcode != null && $estimate->client->billing_state != null && $estimate->client->billing_city != null && $estimate->client->billing_country_id != null)
-                                {{$estimate->client->company}}<br>
-                                {{$estimate->client->billing_address}}<br>
-                                {{$estimate->client->billing_zipcode}} {{$estimate->client->billing_city}}<br>
-                                {{$estimate->client->billing_state}}, {{$estimate->client->billing_country->name}}
-
-                            @else
-                                {{$estimate->client->company}}<br>
-                                {{$estimate->client->address}}<br>
-                                {{$estimate->client->zipcode}} {{$estimate->client->city}}<br>
-                                {{$estimate->client->state}}, {{$estimate->client->country->name}}
-                            @endif
-                        </address>
-                    </div>
-                    <div class="col-xs-6 text-right">
-                        <address>
-                            <strong>Shipped To:</strong><br>
-                            @if($estimate->client->shipping_address!= null && $estimate->client->shipping_zipcode != null && $estimate->client->shipping_state != null && $estimate->client->shipping_city != null && $estimate->client->shipping_country_id != null)
-                                {{$estimate->client->company}}<br>
-                                {{$estimate->client->shipping_address}}<br>
-                                {{$estimate->client->shipping_zipcode}} {{$estimate->client->shipping_city}}<br>
-                                {{$estimate->client->shipping_state}}, {{$estimate->client->shipping_country->name}}
-
-                            @else
-                                {{$estimate->client->company}}<br>
-                                {{$estimate->client->address}}<br>
-                                {{$estimate->client->zipcode}} {{$estimate->client->city}}<br>
-                                {{$estimate->client->state}}, {{$estimate->client->country->name}}
-                            @endif
-
-                        </address>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 text-right pull-right">
-                        <address>
-                            <strong>Estimate Date:</strong><br>
-                            {{$estimate->date->toFormattedDateString()}}
-                        </address>
-
-                        <address>
-                            <strong>Approval Deadline:</strong><br>
-                            {{$estimate->deadline->diffForhumans()}} at <b><u>{{$estimate->deadline->toFormattedDateString()}}</u></b>
-                        </address>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><strong>Estimate Summary</strong></h3>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-building-o"></i> Estimate # {{$estimate->prefix}}{{$estimate->number}}
                     </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
+                    <div class="card-body">
+
+                <div class="row">
+                        <div class="col-md-6">
+                            <address>
+                                <strong>Billed To:</strong><br>
+                                @if($estimate->client->billing_address!= null && $estimate->client->billing_zipcode != null && $estimate->client->billing_state != null && $estimate->client->billing_city != null && $estimate->client->billing_country_id != null)
+                                    {{$estimate->client->company}}<br>
+                                    {{$estimate->client->billing_address}}<br>
+                                    {{$estimate->client->billing_zipcode}} {{$estimate->client->billing_city}}<br>
+                                    {{$estimate->client->billing_state}}, {{$estimate->client->billing_country->name}}
+
+                                @else
+                                    {{$estimate->client->company}}<br>
+                                    {{$estimate->client->address}}<br>
+                                    {{$estimate->client->zipcode}} {{$estimate->client->city}}<br>
+                                    {{$estimate->client->state}}, {{$estimate->client->country->name}}
+                                @endif
+                            </address>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <address>
+                                <strong>Shipped To:</strong><br>
+                                @if($estimate->client->shipping_address!= null && $estimate->client->shipping_zipcode != null && $estimate->client->shipping_state != null && $estimate->client->shipping_city != null && $estimate->client->shipping_country_id != null)
+                                    {{$estimate->client->company}}<br>
+                                    {{$estimate->client->shipping_address}}<br>
+                                    {{$estimate->client->shipping_zipcode}} {{$estimate->client->shipping_city}}<br>
+                                    {{$estimate->client->shipping_state}}, {{$estimate->client->shipping_country->name}}
+
+                                @else
+                                    {{$estimate->client->company}}<br>
+                                    {{$estimate->client->address}}<br>
+                                    {{$estimate->client->zipcode}} {{$estimate->client->city}}<br>
+                                    {{$estimate->client->state}}, {{$estimate->client->country->name}}
+                                @endif
+
+                            </address>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6 text-right pull-right">
+                            <address>
+                                <strong>Estimate Date:</strong><br>
+                                {{$estimate->date->toFormattedDateString()}}
+                            </address>
+
+                            <address>
+                                <strong>Approval Deadline:</strong><br>
+                                {{$estimate->deadline->diffForhumans()}} at <b><u>{{$estimate->deadline->toFormattedDateString()}}</u></b>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                        <hr>
+                        <div class="row">
+                            <h3 class="panel-title"><strong>Estimate Summary</strong></h3>
                             <table class="table table-condensed">
                                 <thead>
                                 <tr>
@@ -128,10 +124,11 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 @endsection
 

@@ -13,8 +13,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">UWV Contactperson</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-md"></i> Add UWV Contact person
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'Addons\AdminUwvContactController@store']) !!}
                     <div class="form-group">
                         {!! Form::label('firstname', 'Firstname:') !!}
@@ -33,10 +36,11 @@
                         {!! Form::text('phonenumber', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Create Contact', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Add UWV Contact', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

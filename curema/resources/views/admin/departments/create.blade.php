@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/bootstrap.colorpickersliders.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}" class="style">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" class="style">
 @endsection
 @section('content')
     @if(count($errors) > 0)
@@ -17,8 +15,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Create Department</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-building-o"></i> Add Departments
+                    </div>
+                    <div class="card-body">
                     {!! Form::open(['method' => 'POST', 'action' => 'AdminDepartmentController@store']) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Name:') !!}
@@ -30,24 +31,23 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('agents[]', 'Agents:') !!}
-                        {!! Form::select('agents[]',$agents, null, ['class' => 'form-control selectpicker', 'multiple' => true]) !!}
+                        {!! Form::select('agents[]',$agents, null, ['class' => 'form-control selectpicker', 'multiple' => true, 'data-live-search' => 'true']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Create Department', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Add Department', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/tinycolor-min.js')}}"></script>
     <script src="{{asset('js/bootstrap.colorpickersliders.js')}}"></script>
     <script src="{{asset('js/bootstrap.colorpickersliders.nocielch.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
     <script>
         $("input#color_code").ColorPickerSliders({

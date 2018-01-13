@@ -21,18 +21,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.leads.create')}}" class="btn btn-primary"> New Lead</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Leads
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-user-o"></i> Leads
+                        <a href="{{route('admin.leads.create')}}" class="btn btn-primary pull-right"> Create new Lead</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($leads) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
@@ -41,24 +39,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($leads)
+
                             @foreach($leads as $lead)
                                 <tr>
                                     <td>{{$lead->name}}</td>
                                     <td>{{$lead->email}}</td>
                                     <td>{{$lead->company}}</td>
                                     <td>
-                                        <a href="{{route('admin.leads.edit', $lead->id)}}" class="btn btn-warning btn-xs">Edit</a>
-                                        {!! Form::model($lead, ['method' => 'DELETE', 'action' => ['AdminLeadController@destroy', $lead->id]]) !!}
-                                        {!! Form::hidden('', $lead->id) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                                        {!! Form::close() !!}
+                                        <a href="{{route('admin.leads.edit', $lead->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
+
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find any leads!</h3>
+                    @endif
+                </div>
                 </div>
             </div>
         </div>

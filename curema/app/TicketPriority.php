@@ -9,7 +9,7 @@ class TicketPriority extends Model
     protected $fillable = ['name', 'color_code'];
 
     public static function getByRank($id) {
-        return TicketPriority::where('rank', $id)->first();
+        return TicketPriority::where('id', $id)->firstOrFail();
     }
 
     public function tickets() {

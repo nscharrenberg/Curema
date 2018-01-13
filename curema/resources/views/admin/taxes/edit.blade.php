@@ -13,8 +13,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Taxes</div>
+                <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-percent"></i> Update Tax
+                </div>
+                <div class="card-body">
                     {!! Form::open(['method' => 'PATCH', 'action' => ['AdminTaxController@update', $tax->id]]) !!}
                     {!! Form::hidden('id', $tax->id) !!}
                     <div class="form-group">
@@ -30,6 +33,7 @@
                     </div>
 
                     {!! Form::close() !!}
+                </div>
                 </div>
             </div>
         </div>

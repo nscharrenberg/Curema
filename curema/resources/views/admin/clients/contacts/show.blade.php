@@ -49,7 +49,7 @@
                                             <td>{{$contact->firstname}}</td>
                                             <td>{{$contact->lastname}}</td>
                                             <td>{{$contact->active ? "Yes" : "No"}}</td>
-                                            @if($contact->id == $client->user->id)
+                                            @if($client->user != null && $contact->id == $client->user->id)
                                                 <td>Yes</td>
                                                 @else
                                                 <td>No</td>
@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                     @else
-                        <h1>There are no Contactpersons yet!</h1>
+                        <h3>There are no Contactpersons yet!</h3>
                     @endif
                 </div>
             </div>

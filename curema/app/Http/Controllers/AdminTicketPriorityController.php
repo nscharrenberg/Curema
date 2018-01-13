@@ -47,6 +47,11 @@ class AdminTicketPriorityController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $input = $request->all();
         $priority = TicketPriority::create($input);
         Session::flash('created_ticket_priority', 'The Ticket Priority ' . $priority->name  . ' has been created');
@@ -74,6 +79,11 @@ class AdminTicketPriorityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'color_code' => 'required'
+        ]);
+
         $input = $request->all();
         $priority = TicketPriority::findOrFail($id);
         $priority->update($input);

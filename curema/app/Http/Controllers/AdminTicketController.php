@@ -30,6 +30,7 @@ class AdminTicketController extends Controller
     public function index()
     {
         $priorities = TicketPriority::orderBy('rank', 'ASC')->get();
+        $ticketsSection = null;
         if(Auth::user()->admin) {
             foreach($priorities as $priority) {
                 $ticketsSection[] = Ticket::whereNotIn('status_id', [2])->where('priority_id', $priority->id)->where('agent_id', auth()->user()->id)->where('complete', false)->get();
@@ -43,7 +44,7 @@ class AdminTicketController extends Controller
         $unassignedTickets = Ticket::whereNotIn('status_id', [2])->where('agent_id', null)->get();
         $completedTickets = Ticket::where('agent_id', auth()->user()->id)->where('complete', true)->get();
 
-        return view('admin.tickets.index', compact('ticketsSection', 'unassignedTickets', 'completedTickets'));
+        return view('admin.tickets.index', compact('ticketsSection', 'unassignedTickets', 'completedTickets', 'priorities'));
     }
 
     /**

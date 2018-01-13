@@ -27,7 +27,7 @@ class EstimateCreateRequest extends FormRequest
             'date_send' => 'date|Nullable',
             'client_id' => 'required|numeric',
             'project_id' => 'numeric',
-            'number' => 'numeric|required',
+            'number' => 'numeric|required|max:2147483647',
             'number_format' => 'numeric',
             'date' => 'date_format:"Y/m/d"|required',
             'deadline' => 'date_format:"Y/m/d"|Nullable',

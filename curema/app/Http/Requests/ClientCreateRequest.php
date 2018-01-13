@@ -26,12 +26,12 @@ class ClientCreateRequest extends FormRequest
     {
         return [
             'company' => 'required',
-            'country_id' => 'required',
+            'country_id' => 'required|integer|min: 1',
             'city' => 'required',
             'zipcode' => 'required',
             'state' => 'required',
             'address' => 'required',
-            'currency_id' => 'required',
+            'currency_id' => 'required|integer|min: 1',
 //            'primary_contact_id' => 'required',
         ];
     }

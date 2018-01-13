@@ -21,18 +21,16 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="coll-md-12 pull-right">
-                <div class="panel-heading"><a href="{{route('admin.tax.create')}}" class="btn btn-primary"> New Tax</a></div>
-            </div>
             <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Taxes
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-percent"></i> Taxes
+                        <a href="{{route('admin.tax.create')}}" class="btn btn-primary pull-right"> Create new Tax</a>
                     </div>
+                    <div class="card-body card-fullwidth">
+                    @if(count($taxes) > 0)
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="thead-primary">
                         <tr>
                             <th>Name</th>
                             <th>Rate</th>
@@ -40,23 +38,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($taxes)
+
                             @foreach($taxes as $tax)
                                 <tr>
                                     <td>{{$tax->name}}</td>
                                     <td>{{$tax->rate}}</td>
                                     <td>
-                                        <a href="{{route('admin.tax.edit', $tax->id)}}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{{route('admin.tax.edit', $tax->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         {!! Form::model($tax, ['method' => 'DELETE', 'action' => ['AdminTaxController@destroy', $tax->id]]) !!}
                                             {!! Form::hidden('', $tax->id) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
                         </tbody>
                     </table>
+                        @else
+                        <h3>Could not find any Tax!</h3>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>
